@@ -1120,7 +1120,7 @@ fn signing_with_windows_store_identities() {
     getrandom::fill(&mut random).unwrap();
     let unique: String = random.iter().map(|b| format!("{b:02x}")).collect();
     for algorithm in ["RSA", "ECDSA_nistP256", "ECDSA_nistP384"] {
-        let name = format!("PdfCraft Test {unique} {algorithm}");
+        let name = format!("PdfKopi Test {unique} {algorithm}");
         let rsa = if algorithm == "RSA" { "-KeyLength 2048" } else { "" };
         let out = powershell(&format!(
             "$ErrorActionPreference='Stop'; $c=New-SelfSignedCertificate -Subject 'CN={name}' -CertStoreLocation 'Cert:\\CurrentUser\\My' -Provider 'Microsoft Software Key Storage Provider' -KeyAlgorithm {algorithm} {rsa} -KeyUsage DigitalSignature -KeyExportPolicy NonExportable; $c.Thumbprint"
