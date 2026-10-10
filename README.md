@@ -16,15 +16,26 @@ PdfKopi is Kopitiam's PDF app: no account, no upload, no telemetry. Your documen
 your machine. It is the first of a family of Kopitiam desktop apps, each named after something
 on the kopitiam menu.
 
-PdfKopi is based on [PdfCraft](https://github.com/storytold/pdfcraft) by the ArtCraft team, a
-clean-room PDF engine and app built from the ISO 32000 specification. We track PdfCraft closely and
-merge its fixes; PdfKopi adds Kopitiam's branding, fixes and features on top.
+## What it does
+
+- **Read:** fast rendering, search, bookmarks, thumbnails, dark mode and accessibility checks.
+- **Organize:** reorder, rotate, insert, delete, combine and split pages.
+- **Review:** highlights, notes, shapes, stamps and other comments.
+- **Fill & sign:** fill forms, add signatures, and sign with a digital ID.
+- **Secure:** open and set passwords, respect copy restrictions, and redact content permanently.
+- **Print and export:** print, optimize file size, and export text.
+
+## Download
+
+PdfKopi will be available from [kopitiam.io](https://kopitiam.io) and from
+[GitHub Releases](https://github.com/kopitiam-io/pdfkopi/releases) for macOS, Windows and Linux.
+There is no public release yet; until then, build it from source as below.
 
 ## Status
 
-Early alpha, like PdfCraft itself. Viewing, search, organizing pages, combining and splitting,
-comments, forms, passwords, redaction, basic signatures and printing work today. Editing existing
-text, OCR beyond Latin script and Office export are still thin. Known bugs are triaged in the
+Early alpha. Viewing, search, organizing pages, combining and splitting, comments, forms,
+passwords, redaction, basic signatures and printing work today. Editing existing text, OCR beyond
+Latin script and Office export are still thin. Known bugs are tracked in the
 [issue tracker](https://github.com/kopitiam-io/pdfkopi/issues).
 
 ## Build and run
@@ -34,12 +45,11 @@ Needs Rust 1.90 or newer ([rustup](https://rustup.rs)).
 ```sh
 git clone https://github.com/kopitiam-io/pdfkopi
 cd pdfkopi
-cargo run --release -p pdfcraft -- some.pdf   # desktop app
-cargo run --release -p pdfcraft-cli -- --help  # command-line tool
+cargo run --release --bin pdfkopi -- some.pdf      # desktop app
+cargo run --release --bin pdfkopi-cli -- --help    # command-line tool
 ```
 
-The internal crates keep their upstream `pdfcraft-*` names so PdfCraft fixes merge cleanly; the
-app itself is PdfKopi. Development notes are in [docs/development.md](docs/development.md).
+Development notes are in [docs/development.md](docs/development.md).
 
 ## Feedback
 
@@ -47,14 +57,16 @@ Report bugs and request features on [GitHub](https://github.com/kopitiam-io/pdfk
 
 ## License and credits
 
-PdfKopi is dual-licensed under [MIT](LICENSE-MIT) or [Apache-2.0](LICENSE-APACHE), at your option,
-as is PdfCraft. Copyright (c) 2026 Kopitiam, and the ArtCraft Team and the PdfCraft contributors.
+PdfKopi is dual-licensed under [MIT](LICENSE-MIT) or [Apache-2.0](LICENSE-APACHE), at your option.
 Required notices are in [NOTICE](NOTICE). Bundled fonts, icons, images and other assets keep their
 own open licenses; each is listed with its author, source and license in
 [ATTRIBUTION.md](ATTRIBUTION.md).
 
-PdfKopi is not made, sponsored or endorsed by the ArtCraft Team, and carries none of their marks
-(see [docs/BRANDING.md](docs/BRANDING.md)).
+PdfKopi is built on [PdfCraft](https://github.com/storytold/pdfcraft), an open-source PDF engine
+by the ArtCraft Team and the PdfCraft contributors, whose copyright it carries. PdfKopi is not
+made, sponsored or endorsed by them and carries none of their marks (see
+[docs/BRANDING.md](docs/BRANDING.md)). Inside the source tree the engine crates keep their
+upstream `pdfcraft-*` names so upstream fixes merge cleanly.
 
 <sub>Adobe and Acrobat are trademarks or registered trademarks of Adobe Inc. in the United States
 and/or other countries. PdfKopi is an independent, open-source project and is not affiliated with,
