@@ -5,8 +5,10 @@ version.workspace = true
 edition.workspace = true
 license.workspace = true
 
+# The built binary is `pdfkopi-cli` (packaging identity); the Cargo package stays `pdfcraft-cli`
+# so `-p pdfcraft-cli` and upstream merges keep working.
 [[bin]]
-name = "pdfcraft-cli"
+name = "pdfkopi-cli"
 path = "src/main.rs"
 
 [lints]
@@ -26,7 +28,7 @@ base64 = "0.22"
 rustix = { version = "1", features = ["process"] }
 
 [build-dependencies]
-# VERSIONINFO for pdfcraft-cli.exe; build.rs only uses it when targeting Windows.
+# VERSIONINFO for pdfkopi-cli.exe; build.rs only uses it when targeting Windows.
 winresource = "0.1"
 
 [features]

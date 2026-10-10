@@ -5,6 +5,12 @@ version.workspace = true
 edition.workspace = true
 license.workspace = true
 
+# The built binary is `pdfkopi` (packaging identity); the Cargo package stays `pdfcraft` so
+# `-p pdfcraft` and upstream merges keep working.
+[[bin]]
+name = "pdfkopi"
+path = "src/main.rs"
+
 [lints]
 workspace = true
 
@@ -38,5 +44,5 @@ pollster = "1.0"
 winsafe = { version = "0.0.29", default-features = false, features = ["user"] }
 
 [build-dependencies]
-# Icon + VERSIONINFO for pdfcraft.exe; build.rs only uses it when targeting Windows.
+# Icon + VERSIONINFO for pdfkopi.exe; build.rs only uses it when targeting Windows.
 winresource = "0.1"

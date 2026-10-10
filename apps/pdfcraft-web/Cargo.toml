@@ -6,6 +6,12 @@ edition.workspace = true
 license.workspace = true
 publish = false
 
+# The built wasm artifact is `pdfkopi-web` (packaging identity); the Cargo package stays
+# `pdfcraft-web` so upstream merges keep working.
+[[bin]]
+name = "pdfkopi-web"
+path = "src/main.rs"
+
 [lints]
 workspace = true
 

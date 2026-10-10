@@ -1,6 +1,6 @@
-//! pdfcraft-cli — headless PdfCraft.
+//! pdfkopi-cli — headless PdfCraft.
 //!
-//! Usage: `pdfcraft-cli --help`, which prints `USAGE` below.
+//! Usage: `pdfkopi-cli --help`, which prints `USAGE` below.
 //!
 //! `run` and `mcp` drive the same tool table (`pdfcraft-automation`). In `run`, values parse as
 //! JSON when they can (`pages=[1,3]`, `degrees=90`) and are strings otherwise. A script runs its
@@ -31,7 +31,7 @@ use pdfcraft_render::{PageRenderer, RenderConfig, RenderRequest, RequestKind, in
 macro_rules! mcp_usage {
     () => {
         "\
-pdfcraft-cli mcp    [--root DIR] [--compact]              MCP server on stdin/stdout (opt-in)
+pdfkopi-cli mcp    [--root DIR] [--compact]              MCP server on stdin/stdout (opt-in)
                                                            --compact lists a core set of tools plus tool_search and tool_call
 "
     };
@@ -46,22 +46,22 @@ macro_rules! mcp_usage {
 /// The full usage, printed by `--help` (also after a command, e.g. `render --help`).
 const USAGE: &str = concat!(
     "\
-pdfcraft-cli info   <file.pdf> [--password PW]            document summary as JSON
-pdfcraft-cli render <file.pdf> --page N [--dpi 96] --out x.png   (.png, .jpg, .tif or .pam)
-pdfcraft-cli text   <file.pdf> [--page N]                  extracted text (pages separated by form feeds)
-pdfcraft-cli edit   <in.pdf> --out out.pdf [--rotate 1,3:90] [--delete 2,4] [--move 5:1]
+pdfkopi-cli info   <file.pdf> [--password PW]            document summary as JSON
+pdfkopi-cli render <file.pdf> --page N [--dpi 96] --out x.png   (.png, .jpg, .tif or .pam)
+pdfkopi-cli text   <file.pdf> [--page N]                  extracted text (pages separated by form feeds)
+pdfkopi-cli edit   <in.pdf> --out out.pdf [--rotate 1,3:90] [--delete 2,4] [--move 5:1]
                       [--insert-blank 1] [--title T] [--author A] [--full]
-pdfcraft-cli combine <a.pdf> <b.pdf> … --out combined.pdf
-pdfcraft-cli extract <in.pdf> --pages 1,3,5 --out out.pdf
-pdfcraft-cli split   <in.pdf> (--every N | --before 3,7) [--out-dir DIR]
-pdfcraft-cli check  <files or dirs…> [--timeout 20] [--dpi 36] [--json out.json]
-pdfcraft-cli tools                                       automation tools and their JSON Schemas
-pdfcraft-cli run    <tool> [key=value …] [--root DIR] [--out image.png]
-pdfcraft-cli run    --script steps.json [--root DIR]      [{\"tool\": \"doc_open\", \"args\": {…}}, …]
+pdfkopi-cli combine <a.pdf> <b.pdf> … --out combined.pdf
+pdfkopi-cli extract <in.pdf> --pages 1,3,5 --out out.pdf
+pdfkopi-cli split   <in.pdf> (--every N | --before 3,7) [--out-dir DIR]
+pdfkopi-cli check  <files or dirs…> [--timeout 20] [--dpi 36] [--json out.json]
+pdfkopi-cli tools                                       automation tools and their JSON Schemas
+pdfkopi-cli run    <tool> [key=value …] [--root DIR] [--out image.png]
+pdfkopi-cli run    --script steps.json [--root DIR]      [{\"tool\": \"doc_open\", \"args\": {…}}, …]
 ",
     mcp_usage!(),
     "\
-pdfcraft-cli ui     --control FILE <method> [key=value …] [--out shot.png]
+pdfkopi-cli ui     --control FILE <method> [key=value …] [--out shot.png]
                                                            drive a running app started with --control FILE
 help and feedback: https://github.com/kopitiam-io/pdfkopi/issues"
 );
@@ -93,13 +93,13 @@ fn main() -> ExitCode {
         #[cfg(not(feature = "mcp"))]
         Some("mcp") => Err("mcp: this build leaves out the MCP server (built without the `mcp` feature)".into()),
         Some("--version") => version(),
-        Some(other) => Err(format!("unknown command '{other}'; see pdfcraft-cli --help").into()),
+        Some(other) => Err(format!("unknown command '{other}'; see pdfkopi-cli --help").into()),
     };
     match result {
         Ok(()) => ExitCode::SUCCESS,
         Err(CliError::Stdout(e)) if e.kind() == std::io::ErrorKind::BrokenPipe => ExitCode::SUCCESS,
         Err(e) => {
-            let _ = writeln!(std::io::stderr().lock(), "pdfcraft-cli: {e}");
+            let _ = writeln!(std::io::stderr().lock(), "pdfkopi-cli: {e}");
             ExitCode::FAILURE
         }
     }
@@ -139,7 +139,7 @@ fn stdout_line(line: std::fmt::Arguments<'_>) -> Result<(), CliError> {
 }
 
 fn version() -> Result<(), CliError> {
-    stdout_line(format_args!("pdfcraft-cli {}", env!("CARGO_PKG_VERSION")))?;
+    stdout_line(format_args!("pdfkopi-cli {}", env!("CARGO_PKG_VERSION")))?;
     stdout_line(format_args!("Feedback: {}", pdfcraft_engine::links::FEEDBACK))?;
     stdout_line(format_args!("Web:      {}", pdfcraft_engine::links::APP_PAGE))?;
     stdout_line(format_args!("Source:   {}", pdfcraft_engine::links::GITHUB))?;
@@ -693,7 +693,7 @@ fn run(args: &[String]) -> Result<(), CliError> {
         }
         return Ok(());
     }
-    let tool = *positional(args).first().ok_or("run: missing tool name (see `pdfcraft-cli tools`)")?;
+    let tool = *positional(args).first().ok_or("run: missing tool name (see `pdfkopi-cli tools`)")?;
     let mut obj = serde_json::Map::new();
     for kv in positional(args).iter().skip(1) {
         let (k, v) = kv.split_once('=').ok_or(format!("run: expected key=value, got {kv:?}"))?;
@@ -711,7 +711,7 @@ fn mcp(args: &[String]) -> Result<(), CliError> {
     let mut server = pdfcraft_automation::mcp::McpServer::new(automation(args)?).with_compact(compact);
     let _ = writeln!(
         std::io::stderr().lock(),
-        "pdfcraft-cli: MCP server on stdio (protocol {}{}); close stdin to stop",
+        "pdfkopi-cli: MCP server on stdio (protocol {}{}); close stdin to stop",
         pdfcraft_automation::mcp::PROTOCOL_VERSIONS[0],
         if compact { ", compact tool list" } else { "" }
     );
@@ -720,11 +720,11 @@ fn mcp(args: &[String]) -> Result<(), CliError> {
 
 // ---- UI control channel client -----------------------------------------------------------------
 
-/// One request to a running app's control channel (`pdfcraft --control FILE`).
+/// One request to a running app's control channel (`pdfkopi --control FILE`).
 fn ui(args: &[String]) -> Result<(), CliError> {
     validate_options("ui", args, UI_OPTIONS)?;
     use std::io::{BufRead, BufReader, Write as _};
-    let file = flag(args, "--control").ok_or("ui: missing --control FILE (start the app with `pdfcraft --control FILE`)")?;
+    let file = flag(args, "--control").ok_or("ui: missing --control FILE (start the app with `pdfkopi --control FILE`)")?;
     let info = read_control_file(file)?;
     let port = info["port"].as_u64().ok_or(format!("{file}: no port"))?;
     // Refused rather than truncated, which would quietly reach some other port.
@@ -768,9 +768,9 @@ fn ui(args: &[String]) -> Result<(), CliError> {
 const CONTROL_FILE_MAX: u64 = 64 * 1024;
 
 const CONTROL_FILE_ADVICE: &str =
-    "Start the app with a control file in a folder only you can write, such as `pdfcraft --control ~/.pdfcraft-control.json`";
+    "Start the app with a control file in a folder only you can write, such as `pdfkopi --control ~/.pdfkopi-control.json`";
 
-/// Read the file written by `pdfcraft --control FILE`.
+/// Read the file written by `pdfkopi --control FILE`.
 ///
 /// It names the port that receives the token and every command, typed text included, so it must
 /// be the user's own. In a shared folder such as `/tmp`, another local user can create the file
