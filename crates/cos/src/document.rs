@@ -369,10 +369,7 @@ impl Document {
         // the content with no prompt (#603). When the caller supplied no password and the empty
         // password did not authenticate as the user, the Document Open password is mandatory:
         // refuse so the caller prompts, exactly as if the empty password were simply wrong.
-        if password.is_none()
-            && handler.auth() == pdfcraft_crypt::Auth::Owner
-            && !handler.authenticates_empty_user(&id0)
-        {
+        if password.is_none() && handler.auth() == pdfcraft_crypt::Auth::Owner && !handler.authenticates_empty_user(&id0) {
             return Err(CosError::NeedsPassword);
         }
         self.security = Some(Arc::new(handler));

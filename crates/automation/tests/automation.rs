@@ -3498,10 +3498,7 @@ fn copy_restricted_documents_refuse_text_extraction() {
     let refused = |e: &ToolError| matches!(e, ToolError::Failed(m) if m.contains("don't allow copying"));
     assert!(refused(&a.call("text_extract", &json!({ "doc": id })).unwrap_err()), "text_extract must be blocked");
     assert!(refused(&a.call("text_find", &json!({ "doc": id, "query": "Page" })).unwrap_err()), "text_find must be blocked");
-    assert!(
-        refused(&a.call("doc_export_text", &json!({ "doc": id, "path": "out.txt" })).unwrap_err()),
-        "doc_export_text must be blocked"
-    );
+    assert!(refused(&a.call("doc_export_text", &json!({ "doc": id, "path": "out.txt" })).unwrap_err()), "doc_export_text must be blocked");
     assert!(!dir.join("out.txt").exists(), "no text file was written for a blocked export");
 
     // The owner password lifts the restriction.
