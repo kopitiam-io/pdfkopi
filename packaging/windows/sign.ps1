@@ -55,7 +55,7 @@ if (-not $haveCert -and -not $haveAzure) {
 }
 
 $script:SignTool = Find-SignTool
-$common = @('sign', '/v', '/fd', 'SHA256', '/td', 'SHA256', '/d', 'PdfKopi', '/du', 'https://github.com/kopitiam-io/pdfkopi')
+$common = @('sign', '/v', '/fd', 'SHA256', '/td', 'SHA256', '/d', 'PdfKopi', '/du', 'https://kopitiam.io')
 $tmp = Join-Path ([IO.Path]::GetTempPath()) "pdfkopi-sign-$PID"
 New-Item -ItemType Directory -Force -Path $tmp | Out-Null
 

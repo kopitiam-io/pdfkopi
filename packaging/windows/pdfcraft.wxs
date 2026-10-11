@@ -38,7 +38,7 @@
     <Property Id="ARPPRODUCTICON" Value="PdfcraftIcon.ico" />
     <Property Id="ARPURLINFOABOUT" Value="https://kopitiam.io" />
     <Property Id="ARPURLUPDATEINFO" Value="https://kopitiam.io" />
-    <Property Id="ARPHELPLINK" Value="https://github.com/kopitiam-io/pdfkopi/issues" />
+    <Property Id="ARPHELPLINK" Value="mailto:support@kopitiam.io" />
     <!-- Desktop shortcut (#143): on by default, a checkbox in the full-UI welcome dialog, and
          INSTALLDESKTOPSHORTCUT=0 on the msiexec command line for unattended installs. Secure, so the
          choice made in the (unelevated) UI reaches the elevated install. -->
@@ -83,7 +83,7 @@
         <RegistryValue Root="HKLM" Key="Software\Classes\Applications\pdfkopi.exe\SupportedTypes" Name=".pdf" Value="" Type="string" />
         <RegistryValue Root="HKLM" Key="Software\Classes\Applications\pdfkopi.exe\shell\open\command" Value="&quot;[#PdfcraftExe]&quot; &quot;%1&quot;" Type="string" />
         <RegistryValue Root="HKLM" Key="Software\PdfKopi\Capabilities" Name="ApplicationName" Value="PdfKopi" Type="string" />
-        <RegistryValue Root="HKLM" Key="Software\PdfKopi\Capabilities" Name="ApplicationDescription" Value="Open-source PDF workbench" Type="string" />
+        <RegistryValue Root="HKLM" Key="Software\PdfKopi\Capabilities" Name="ApplicationDescription" Value="Free PDF workbench" Type="string" />
         <RegistryValue Root="HKLM" Key="Software\PdfKopi\Capabilities" Name="ApplicationIcon" Value="[#PdfcraftExe],0" Type="string" />
         <RegistryValue Root="HKLM" Key="Software\PdfKopi\Capabilities\FileAssociations" Name=".pdf" Value="PdfKopi.Document" Type="string" />
         <RegistryValue Root="HKLM" Key="Software\RegisteredApplications" Name="PdfKopi" Value="Software\PdfKopi\Capabilities" Type="string" />

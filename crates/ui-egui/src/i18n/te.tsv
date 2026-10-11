@@ -71,11 +71,9 @@ comment menu	Edit	సవరించు
 	OK	సరే
 	Send feedback	అభిప్రాయం పంపండి
 	Kopitiam website	Kopitiam వెబ్‌సైట్
-	Based on PdfCraft	PdfCraft ఆధారంగా
 	Feedback	అభిప్రాయం
 	Made by Kopitiam	Kopitiam రూపొందించింది
-	Free, local-first document tools. Send feedback on GitHub.	స్థానికంగా పనిచేసే ఉచిత డాక్యుమెంట్ సాధనాలు. అభిప్రాయాన్ని GitHub‌లో పంపండి.
-	Based on PdfCraft by the ArtCraft team.	ArtCraft బృందం రూపొందించిన PdfCraft ఆధారంగా.
+	Free, local-first document tools. Send feedback to support@kopitiam.io.	స్థానికంగా పనిచేసే ఉచిత డాక్యుమెంట్ సాధనాలు. అభిప్రాయాన్ని support@kopitiam.io‌కు పంపండి.
 	Close	మూసివేయి
 	Next / previous match	తదుపరి / మునుపటి సరిపోలిక
 	Copy selected text	ఎంచుకున్న టెక్స్ట్‌ను కాపీ చేయి
@@ -136,7 +134,7 @@ comment menu	Edit	సవరించు
 	Previous page	మునుపటి పేజీ
 	Current page — type a page number or label (such as iv) and press Enter	ప్రస్తుత పేజీ — పేజీ సంఖ్యను లేదా లేబుల్‌ను (iv వంటిది) టైప్ చేసి Enter నొక్కండి
 	Welcome to PdfKopi	PdfCraftకు స్వాగతం
-	An open-source PDF workbench — local, private, and scriptable.	ఓపెన్-సోర్స్ PDF వర్క్‌బెంచ్ — మీ కంప్యూటర్‌లోనే నడుస్తుంది, గోప్యంగా ఉంటుంది, స్క్రిప్ట్‌లతో ఆటోమేట్ చేయవచ్చు.
+	A PDF workbench — local, private, and scriptable.	PDF వర్క్‌బెంచ్ — మీ కంప్యూటర్‌లోనే నడుస్తుంది, గోప్యంగా ఉంటుంది, స్క్రిప్ట్‌లతో ఆటోమేట్ చేయవచ్చు.
 	Recommended tools	సిఫార్సు చేసిన సాధనాలు
 	Use now	ఇప్పుడే ఉపయోగించు
 	Open file	ఫైల్‌ను తెరువు
@@ -277,7 +275,6 @@ comment menu	Edit	సవరించు
 	Split document…	పత్రాన్ని విభజించు…
 	Number pages…	పేజీలకు సంఖ్యలు వేయి…
 	Keyboard shortcuts	కీబోర్డ్ షార్ట్‌కట్‌లు
-	PdfKopi on GitHub	GitHubలో PdfKopi
 	Check for updates…	అప్‌డేట్‌ల కోసం తనిఖీ చేయి…
 	About PdfKopi	PdfKopi గురించి
 	Export a PDF	PDFను ఎగుమతి చేయి
@@ -1338,7 +1335,7 @@ signature pad	Type	టైప్ చేయి
 	Recover	పునరుద్ధరించు
 	Discard	విస్మరించు
 	Version {v}	వెర్షన్ {v}
-	A clean-room, open-source PDF application written in Rust. MIT OR Apache-2.0.	Rustలో రాసిన క్లీన్-రూమ్, ఓపెన్-సోర్స్ PDF అప్లికేషన్. MIT OR Apache-2.0.
+	A free, local-first PDF application written in Rust.	స్థానికంగా పనిచేసే ఉచిత PDF అప్లికేషన్, Rustలో రాయబడింది.
 	Part of	దీనిలో భాగం:
 	Summarize Options	సారాంశ ఎంపికలు
 	Choose a layout:	లేఅవుట్‌ను ఎంచుకోండి:

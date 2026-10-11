@@ -88,11 +88,9 @@
 	OK	OK
 	Send feedback	Отправить отзыв
 	Kopitiam website	Сайт Kopitiam
-	Based on PdfCraft	Основано на PdfCraft
 	Feedback	Отзыв
 	Made by Kopitiam	Сделано Kopitiam
-	Free, local-first document tools. Send feedback on GitHub.	Бесплатные инструменты для документов, работающие локально. Отзывы — на GitHub.
-	Based on PdfCraft by the ArtCraft team.	Основано на PdfCraft от команды ArtCraft.
+	Free, local-first document tools. Send feedback to support@kopitiam.io.	Бесплатные инструменты для документов, работающие локально. Отзывы — на support@kopitiam.io.
 	Close	Закрыть
 	Next / previous match	Следующее / предыдущее совпадение
 	Copy selected text	Копировать выделенный текст
@@ -153,7 +151,7 @@
 	Previous page	Предыдущая страница
 	Current page — type a page number or label (such as iv) and press Enter	Текущая страница — введите номер или метку страницы (например, iv) и нажмите Enter
 	Welcome to PdfKopi	Добро пожаловать в PdfKopi
-	An open-source PDF workbench — local, private, and scriptable.	Открытый PDF-редактор — локальный, приватный и программируемый.
+	A PDF workbench — local, private, and scriptable.	PDF-редактор — локальный, приватный и программируемый.
 	Recommended tools	Рекомендуемые инструменты
 	Use now	Использовать сейчас
 	Open file	Открыть файл
@@ -294,7 +292,6 @@
 	Split document…	Разделить документ…
 	Number pages…	Пронумеровать страницы…
 	Keyboard shortcuts	Горячие клавиши
-	PdfKopi on GitHub	PdfKopi на GitHub
 	Check for updates…	Проверить обновления…
 	About PdfKopi	О программе PdfKopi
 	Export a PDF	Экспортировать PDF
@@ -1365,7 +1362,7 @@
 	Recover	Восстановить
 	Discard	Отклонить
 	Version {v}	Версия {v}
-	A clean-room, open-source PDF application written in Rust. MIT OR Apache-2.0.	Открытое PDF-приложение с чистой комнатой, написанное на Rust. MIT OR Apache-2.0.
+	A free, local-first PDF application written in Rust.	Бесплатное PDF-приложение, работающее локально, написанное на Rust.
 	Part of	Часть
 	Summarize Options	Параметры суммирования
 	Choose a layout:	Выберите макет:

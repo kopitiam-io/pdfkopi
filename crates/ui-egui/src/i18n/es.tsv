@@ -88,11 +88,9 @@
 	OK	Aceptar
 	Send feedback	Enviar comentarios
 	Kopitiam website	Sitio web de Kopitiam
-	Based on PdfCraft	Basado en PdfCraft
 	Feedback	Comentarios
 	Made by Kopitiam	Hecho por Kopitiam
-	Free, local-first document tools. Send feedback on GitHub.	Herramientas de documentos gratuitas que funcionan en local. Envía comentarios en GitHub.
-	Based on PdfCraft by the ArtCraft team.	Basado en PdfCraft, del equipo de ArtCraft.
+	Free, local-first document tools. Send feedback to support@kopitiam.io.	Herramientas de documentos gratuitas que funcionan en local. Envía comentarios a support@kopitiam.io.
 	Close	Cerrar
 	Next / previous match	Coincidencia siguiente / anterior
 	Copy selected text	Copiar el texto seleccionado
@@ -153,7 +151,7 @@
 	Previous page	Página anterior
 	Current page — type a page number or label (such as iv) and press Enter	Página actual: escribe un número o una etiqueta de página (por ejemplo, iv) y pulsa Intro
 	Welcome to PdfKopi	Te damos la bienvenida a PdfKopi
-	An open-source PDF workbench — local, private, and scriptable.	Un banco de trabajo PDF de código abierto: local, privado y automatizable.
+	A PDF workbench — local, private, and scriptable.	Un banco de trabajo PDF: local, privado y automatizable.
 	Recommended tools	Herramientas recomendadas
 	Use now	Usar ahora
 	Open file	Abrir archivo
@@ -294,7 +292,6 @@
 	Split document…	Dividir documento…
 	Number pages…	Numerar páginas…
 	Keyboard shortcuts	Atajos de teclado
-	PdfKopi on GitHub	PdfKopi en GitHub
 	Check for updates…	Buscar actualizaciones…
 	About PdfKopi	Acerca de PdfKopi
 	Export a PDF	Exportar un PDF
@@ -1358,7 +1355,7 @@
 	Recover	Recuperar
 	Discard	Descartar
 	Version {v}	Versión {v}
-	A clean-room, open-source PDF application written in Rust. MIT OR Apache-2.0.	Una aplicación PDF de código abierto, de sala limpia, escrita en Rust. MIT OR Apache-2.0.
+	A free, local-first PDF application written in Rust.	Una aplicación PDF gratuita que funciona en local, escrita en Rust.
 	Part of	Parte de
 	Summarize Options	Opciones de resumen
 	Choose a layout:	Elige una disposición:

@@ -94,11 +94,9 @@
 	OK	OK
 	Send feedback	フィードバックを送信
 	Kopitiam website	Kopitiam のウェブサイト
-	Based on PdfCraft	PdfCraft がベース
 	Feedback	フィードバック
 	Made by Kopitiam	Kopitiam 製
-	Free, local-first document tools. Send feedback on GitHub.	端末上で動く無料のドキュメントツール。フィードバックは GitHub へ。
-	Based on PdfCraft by the ArtCraft team.	ArtCraft チームの PdfCraft をベースにしています。
+	Free, local-first document tools. Send feedback to support@kopitiam.io.	端末上で動く無料のドキュメントツール。フィードバックは support@kopitiam.io へ。
 	Close	閉じる
 	Next / previous match	次／前の検索結果
 	Copy selected text	選択したテキストをコピー
@@ -159,7 +157,7 @@
 	Previous page	前のページ
 	Current page — type a page number or label (such as iv) and press Enter	現在のページ：ページ番号またはラベル（例：iv）を入力して Enter
 	Welcome to PdfKopi	PdfKopi へようこそ
-	An open-source PDF workbench — local, private, and scriptable.	ローカルで処理し、プライバシーを守る、スクリプト対応のオープンソース PDF ツール。
+	A PDF workbench — local, private, and scriptable.	ローカルで処理し、プライバシーを守る、スクリプト対応の PDF ツール。
 	Recommended tools	おすすめのツール
 	Use now	使用する
 	Open file	ファイルを開く
@@ -300,7 +298,6 @@
 	Split document…	文書を分割…
 	Number pages…	ページ番号を設定…
 	Keyboard shortcuts	キーボードショートカット
-	PdfKopi on GitHub	GitHub の PdfKopi
 	Check for updates…	更新を確認…
 	About PdfKopi	PdfKopi について
 	Export a PDF	PDF を書き出す
@@ -1364,7 +1361,7 @@
 	Recover	復元
 	Discard	破棄
 	Version {v}	バージョン {v}
-	A clean-room, open-source PDF application written in Rust. MIT OR Apache-2.0.	Rust で記述したクリーンルーム方式のオープンソース PDF アプリケーション。MIT OR Apache-2.0。
+	A free, local-first PDF application written in Rust.	端末上で動く無料の PDF アプリケーション。Rust で記述しています。
 	Part of	関連プロジェクト
 	Summarize Options	一覧のオプション
 	Choose a layout:	レイアウトを選択:

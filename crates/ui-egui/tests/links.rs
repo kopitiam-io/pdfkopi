@@ -1,5 +1,5 @@
-//! Links: the Feedback button is one click away everywhere; Help menu, About dialog and home
-//! screen open the Kopitiam pages and credit PdfCraft, which PdfKopi is based on.
+//! Links: the Feedback button is one click away everywhere and emails Kopitiam support; Help menu,
+//! About dialog and home screen open the Kopitiam pages.
 
 use egui_kittest::Harness;
 use egui_kittest::kittest::Queryable;
@@ -18,27 +18,26 @@ fn harness(setup: impl FnOnce(&mut PdfCraftApp) + 'static) -> Harness<'static, P
 }
 
 #[test]
-fn feedback_button_in_the_top_bar_opens_the_issue_tracker() {
+fn feedback_button_in_the_top_bar_emails_support() {
     let mut h = harness(|_| {});
     h.get_by_label("Feedback").click();
     h.run_steps(2);
     assert_eq!(h.state().last_opened_url.as_deref(), Some(links::FEEDBACK));
-    assert_eq!(links::FEEDBACK, "https://github.com/kopitiam-io/pdfkopi/issues");
+    assert_eq!(links::FEEDBACK, "mailto:support@kopitiam.io");
 }
 
 #[test]
 fn home_screen_links() {
-    for (label, url) in [
-        ("Send feedback", links::FEEDBACK),
-        ("Kopitiam website", "https://kopitiam.io"),
-        ("PdfKopi on GitHub", "https://github.com/kopitiam-io/pdfkopi"),
-        ("Based on PdfCraft", "https://github.com/storytold/pdfcraft"),
-    ] {
+    for (label, url) in [("Send feedback", links::FEEDBACK), ("Kopitiam website", "https://kopitiam.io")] {
         let mut h = harness(|_| {});
         h.get_by_label("Made by Kopitiam");
         h.get_by_label(label).click();
         h.run_steps(2);
         assert_eq!(h.state().last_opened_url.as_deref(), Some(url), "{label}");
+    }
+    let h = harness(|_| {});
+    for gone in ["PdfKopi on GitHub", "Based on PdfCraft"] {
+        assert_eq!(h.query_all_by_label(gone).count(), 0, "{gone} is no longer linked");
     }
 }
 
@@ -52,7 +51,8 @@ fn about_dialog_shows_the_brand_and_links() {
     });
     assert!(h.query_all_by_label("Kopitiam").count() >= 2, "the mark and the wordmark");
     assert_eq!(h.query_all_by_label("ArtCraft").count(), 0, "a fork shows none of the ArtCraft marks");
-    h.get_by_label("Based on PdfCraft by the ArtCraft team.");
+    h.get_by_label("A free, local-first PDF application written in Rust.");
+    assert_eq!(h.query_all_by_label("Based on PdfCraft by the ArtCraft team.").count(), 0);
     h.get_by_label("Send feedback").click();
     h.run_steps(2);
     assert_eq!(h.state().last_opened_url.as_deref(), Some(links::FEEDBACK));

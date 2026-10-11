@@ -1256,7 +1256,7 @@
 	Delete selected pages (Organize)	Excluir páginas selecionadas (Organizar)
 	Select all pages (Organize)	Selecionar todas as páginas (Organizar)
 	Version {v}	Versão {v}
-	A clean-room, open-source PDF application written in Rust. MIT OR Apache-2.0.	Um aplicativo PDF de código aberto e clean-room escrito em Rust. MIT OU Apache-2.0.
+	A free, local-first PDF application written in Rust.	Um aplicativo PDF gratuito que funciona localmente, escrito em Rust.
 	Part of	Parte de
 	Summarize Options	Opções de resumo
 	Choose a layout:	Escolha um layout:
@@ -1607,7 +1607,7 @@
 	Convert	Converter
 	E-Sign	Assinatura eletrônica
 	Welcome to PdfKopi	Bem-vindo ao PdfKopi
-	An open-source PDF workbench — local, private, and scriptable.	Uma bancada de trabalho de PDF de código aberto — local, privada e programável.
+	A PDF workbench — local, private, and scriptable.	Uma bancada de trabalho de PDF — local, privada e programável.
 	Recommended tools	Ferramentas recomendadas
 	Use now	Usar agora
 	Recent	Recentes
@@ -1642,12 +1642,9 @@
 	Keyboard shortcuts	Atalhos de teclado
 	Send feedback	Enviar feedback
 	Kopitiam website	Site da Kopitiam
-	Based on PdfCraft	Baseado no PdfCraft
 	Feedback	Feedback
 	Made by Kopitiam	Feito pela Kopitiam
-	Free, local-first document tools. Send feedback on GitHub.	Ferramentas de documentos gratuitas que funcionam localmente. Envie feedback no GitHub.
-	Based on PdfCraft by the ArtCraft team.	Baseado no PdfCraft, da equipe ArtCraft.
-	PdfKopi on GitHub	PdfKopi no GitHub
+	Free, local-first document tools. Send feedback to support@kopitiam.io.	Ferramentas de documentos gratuitas que funcionam localmente. Envie feedback para support@kopitiam.io.
 	Check for updates…	Verificar atualizações…
 	About PdfKopi	Sobre o PdfKopi
 	JavaScript console…	Console JavaScript…

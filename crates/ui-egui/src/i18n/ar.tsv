@@ -95,11 +95,9 @@
 	OK	موافق
 	Send feedback	إرسال ملاحظات
 	Kopitiam website	موقع Kopitiam
-	Based on PdfCraft	مبني على PdfCraft
 	Feedback	ملاحظات
 	Made by Kopitiam	من صنع Kopitiam
-	Free, local-first document tools. Send feedback on GitHub.	أدوات مستندات مجانية تعمل على جهازك. أرسل ملاحظاتك على GitHub.
-	Based on PdfCraft by the ArtCraft team.	مبني على PdfCraft من فريق ArtCraft.
+	Free, local-first document tools. Send feedback to support@kopitiam.io.	أدوات مستندات مجانية تعمل على جهازك. أرسل ملاحظاتك إلى support@kopitiam.io.
 	Close	إغلاق
 	Next / previous match	التطابق التالي / السابق
 	Copy selected text	نسخ النص المحدد
@@ -160,7 +158,7 @@
 	Previous page	الصفحة السابقة
 	Current page — type a page number or label (such as iv) and press Enter	الصفحة الحالية — اكتب رقم صفحة أو تسميتها (مثل iv) ثم اضغط Enter
 	Welcome to PdfKopi	مرحبًا بك في PdfKopi
-	An open-source PDF workbench — local, private, and scriptable.	منضدة عمل مفتوحة المصدر لملفات PDF — محلية وخاصة وقابلة للبرمجة.
+	A PDF workbench — local, private, and scriptable.	منضدة عمل لملفات PDF — محلية وخاصة وقابلة للبرمجة.
 	Recommended tools	أدوات مقترحة
 	Use now	استخدم الآن
 	Open file	فتح ملف
@@ -301,7 +299,6 @@
 	Split document…	تقسيم المستند…
 	Number pages…	ترقيم الصفحات…
 	Keyboard shortcuts	اختصارات لوحة المفاتيح
-	PdfKopi on GitHub	PdfKopi على GitHub
 	Check for updates…	التحقق من التحديثات…
 	About PdfKopi	حول PdfKopi
 	Export a PDF	تصدير ملف PDF
@@ -1364,7 +1361,7 @@
 	Recover	استعادة
 	Discard	تجاهل
 	Version {v}	الإصدار {v}
-	A clean-room, open-source PDF application written in Rust. MIT OR Apache-2.0.	تطبيق PDF مفتوح المصدر مكتوب بلغة Rust بأسلوب الغرفة النظيفة. MIT OR Apache-2.0.
+	A free, local-first PDF application written in Rust.	تطبيق PDF مجاني يعمل على جهازك، مكتوب بلغة Rust.
 	Part of	جزء من
 	Summarize Options	خيارات التلخيص
 	Choose a layout:	اختر تخطيطًا:

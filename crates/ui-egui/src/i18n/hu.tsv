@@ -65,11 +65,9 @@
 	OK	OK
 	Send feedback	Visszajelzés küldése
 	Kopitiam website	A Kopitiam webhelye
-	Based on PdfCraft	A PdfCraft alapján
 	Feedback	Visszajelzés
 	Made by Kopitiam	Készítette: Kopitiam
-	Free, local-first document tools. Send feedback on GitHub.	Ingyenes, helyben futó dokumentumeszközök. Visszajelzés a GitHubon.
-	Based on PdfCraft by the ArtCraft team.	Az ArtCraft csapat PdfCraft programja alapján.
+	Free, local-first document tools. Send feedback to support@kopitiam.io.	Ingyenes, helyben futó dokumentumeszközök. Visszajelzés: support@kopitiam.io.
 	Close	Bezárás
 	Next / previous match	Következő / előző találat
 	Copy selected text	Kijelölt szöveg másolása
@@ -130,7 +128,7 @@
 	Previous page	Előző oldal
 	Current page — type a page number or label (such as iv) and press Enter	Aktuális oldal — írj be egy oldalszámot vagy címkét (például iv), majd nyomd meg az Entert
 	Welcome to PdfKopi	Üdvözöljük a PdfCraftban
-	An open-source PDF workbench — local, private, and scriptable.	Nyílt forráskódú PDF-munkapad — helyi, privát és parancsfájlokkal vezérelhető.
+	A PDF workbench — local, private, and scriptable.	PDF-munkapad — helyi, privát és parancsfájlokkal vezérelhető.
 	Recommended tools	Ajánlott eszközök
 	Use now	Használat most
 	Open file	Fájl megnyitása
@@ -271,7 +269,6 @@
 	Split document…	Dokumentum felosztása…
 	Number pages…	Oldalak számozása…
 	Keyboard shortcuts	Billentyűparancsok
-	PdfKopi on GitHub	PdfKopi a GitHubon
 	Check for updates…	Frissítések keresése…
 	About PdfKopi	A PdfCraftról
 	Export a PDF	PDF exportálása
@@ -1333,7 +1330,7 @@
 	Recover	Visszaállítás
 	Discard	Elvetés
 	Version {v}	{v} verzió
-	A clean-room, open-source PDF application written in Rust. MIT OR Apache-2.0.	Tiszta szobás, nyílt forráskódú PDF-alkalmazás, Rustban írva. MIT OR Apache-2.0.
+	A free, local-first PDF application written in Rust.	Ingyenes, helyben futó PDF-alkalmazás, Rustban írva.
 	Part of	Része
 	Summarize Options	Összefoglaló beállításai
 	Choose a layout:	Válassz elrendezést:

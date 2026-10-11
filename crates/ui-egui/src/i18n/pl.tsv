@@ -90,11 +90,9 @@
 	OK	OK
 	Send feedback	Wyślij opinię
 	Kopitiam website	Strona Kopitiam
-	Based on PdfCraft	Na podstawie PdfCraft
 	Feedback	Opinie
 	Made by Kopitiam	Stworzone przez Kopitiam
-	Free, local-first document tools. Send feedback on GitHub.	Bezpłatne narzędzia do dokumentów, działające lokalnie. Opinie wysyłaj na GitHubie.
-	Based on PdfCraft by the ArtCraft team.	Na podstawie PdfCraft zespołu ArtCraft.
+	Free, local-first document tools. Send feedback to support@kopitiam.io.	Bezpłatne narzędzia do dokumentów, działające lokalnie. Opinie wysyłaj na support@kopitiam.io.
 	Close	Zamknij
 	Next / previous match	Następne / poprzednie dopasowanie
 	Copy selected text	Kopiuj zaznaczony tekst
@@ -155,7 +153,7 @@
 	Previous page	Poprzednia strona
 	Current page — type a page number or label (such as iv) and press Enter	Bieżąca strona — wpisz numer lub etykietę strony (np. iv) i naciśnij Enter
 	Welcome to PdfKopi	Witamy w PdfKopi
-	An open-source PDF workbench — local, private, and scriptable.	Otwarty zestaw narzędzi do PDF — lokalny, prywatny i obsługujący skrypty.
+	A PDF workbench — local, private, and scriptable.	Zestaw narzędzi do PDF — lokalny, prywatny i obsługujący skrypty.
 	Recommended tools	Polecane narzędzia
 	Use now	Użyj teraz
 	Open file	Otwórz plik
@@ -295,7 +293,6 @@
 	Split document…	Podziel dokument…
 	Number pages…	Ponumeruj strony…
 	Keyboard shortcuts	Skróty klawiaturowe
-	PdfKopi on GitHub	PdfKopi na GitHubie
 	Check for updates…	Sprawdź aktualizacje…
 	About PdfKopi	O PdfKopi
 	Export a PDF	Eksportuj PDF
@@ -1352,7 +1349,7 @@
 	Recover	Odzyskaj
 	Discard	Odrzuć
 	Version {v}	Wersja {v}
-	A clean-room, open-source PDF application written in Rust. MIT OR Apache-2.0.	Otwarta aplikacja PDF napisana w Rust na podstawie niezależnej implementacji. MIT OR Apache-2.0.
+	A free, local-first PDF application written in Rust.	Bezpłatna aplikacja PDF działająca lokalnie, napisana w Rust.
 	Part of	Część
 	Summarize Options	Opcje podsumowania
 	Choose a layout:	Wybierz układ:

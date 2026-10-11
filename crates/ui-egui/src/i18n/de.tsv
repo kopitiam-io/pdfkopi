@@ -67,11 +67,9 @@
 	OK	OK
 	Send feedback	Feedback senden
 	Kopitiam website	Kopitiam-Website
-	Based on PdfCraft	Basiert auf PdfCraft
 	Feedback	Feedback
 	Made by Kopitiam	Von Kopitiam
-	Free, local-first document tools. Send feedback on GitHub.	Kostenlose Dokumentwerkzeuge, die lokal laufen. Feedback gern auf GitHub.
-	Based on PdfCraft by the ArtCraft team.	Basiert auf PdfCraft vom ArtCraft-Team.
+	Free, local-first document tools. Send feedback to support@kopitiam.io.	Kostenlose Dokumentwerkzeuge, die lokal laufen. Feedback gern an support@kopitiam.io.
 	Close	Schließen
 	Next / previous match	Nächster / vorheriger Treffer
 	Copy selected text	Ausgewählten Text kopieren
@@ -132,7 +130,7 @@
 	Previous page	Vorherige Seite
 	Current page — type a page number or label (such as iv) and press Enter	Aktuelle Seite – gib eine Seitenzahl oder -beschriftung ein (z. B. iv) und drücke die Eingabetaste
 	Welcome to PdfKopi	Willkommen bei PdfKopi
-	An open-source PDF workbench — local, private, and scriptable.	Eine Open-Source-PDF-Werkbank – lokal, privat und skriptfähig.
+	A PDF workbench — local, private, and scriptable.	Eine PDF-Werkbank – lokal, privat und skriptfähig.
 	Recommended tools	Empfohlene Werkzeuge
 	Use now	Jetzt verwenden
 	Open file	Datei öffnen
@@ -273,7 +271,6 @@
 	Split document…	Dokument teilen…
 	Number pages…	Seiten nummerieren…
 	Keyboard shortcuts	Tastenkürzel
-	PdfKopi on GitHub	PdfKopi auf GitHub
 	Check for updates…	Nach Updates suchen…
 	About PdfKopi	Über PdfKopi
 	Export a PDF	PDF exportieren
@@ -1344,7 +1341,7 @@
 	Recover	Wiederherstellen
 	Discard	Verwerfen
 	Version {v}	Version {v}
-	A clean-room, open-source PDF application written in Rust. MIT OR Apache-2.0.	Eine in Clean-Room-Entwicklung entstandene Open-Source-PDF-Anwendung, geschrieben in Rust. MIT OR Apache-2.0.
+	A free, local-first PDF application written in Rust.	Eine kostenlose PDF-Anwendung, die lokal läuft, geschrieben in Rust.
 	Part of	Teil von
 	Summarize Options	Zusammenfassungsoptionen
 	Choose a layout:	Layout wählen:
