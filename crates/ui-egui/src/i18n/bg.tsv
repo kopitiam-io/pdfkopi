@@ -1315,7 +1315,7 @@
 	Delete selected pages (Organize)	Изтрий избраните страници (Организиране)
 	Select all pages (Organize)	Избери всички страници (Организиране)
 	Version {v}	Версия {v}
-	A clean-room, open-source PDF application written in Rust. MIT OR Apache-2.0.	Независимо разработено PDF приложение с отворен код, написано на Rust. MIT OR Apache-2.0.
+	A free, local-first PDF application written in Rust.	Безплатно PDF приложение, което работи локално, написано на Rust.
 	Part of	Част от
 	Summarize Options	Опции за обобщение
 	Choose a layout:	Изберете оформление:
@@ -1733,7 +1733,7 @@
 	Convert	Конвертиране
 	E-Sign	Е-подпис
 	Welcome to PdfKopi	Добре дошли в PdfKopi
-	An open-source PDF workbench — local, private, and scriptable.	PDF работна среда с отворен код — локална, поверителна и програмируема.
+	A PDF workbench — local, private, and scriptable.	PDF работна среда — локална, поверителна и програмируема.
 	Recommended tools	Препоръчани инструменти
 	Use now	Използвай сега
 	Recent	Последни
@@ -1768,12 +1768,9 @@
 	Keyboard shortcuts	Клавишни комбинации
 	Send feedback	Изпращане на отзив
 	Kopitiam website	Уебсайт на Kopitiam
-	Based on PdfCraft	Базирано на PdfCraft
 	Feedback	Отзиви
 	Made by Kopitiam	Създадено от Kopitiam
-	Free, local-first document tools. Send feedback on GitHub.	Безплатни инструменти за документи, които работят локално. Изпращайте отзиви в GitHub.
-	Based on PdfCraft by the ArtCraft team.	Базирано на PdfCraft от екипа на ArtCraft.
-	PdfKopi on GitHub	PdfKopi в GitHub
+	Free, local-first document tools. Send feedback to support@kopitiam.io.	Безплатни инструменти за документи, които работят локално. Изпращайте отзиви на support@kopitiam.io.
 	Check for updates…	Провери за актуализации…
 	About PdfKopi	За PdfKopi
 	JavaScript console…	JavaScript конзола…

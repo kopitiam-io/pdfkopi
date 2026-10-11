@@ -345,8 +345,6 @@ pub const COMMANDS: &[CommandSpec] = &[
     c("help.shortcuts", "Keyboard shortcuts", HELP, None, Nothing, "circle-help"),
     c("help.discord", "Send feedback", HELP, None, Nothing, "messages-square"),
     c("help.app_page", "Kopitiam website", HELP, None, Nothing, "globe"),
-    c("help.github", "PdfKopi on GitHub", HELP, None, Nothing, "code-xml"),
-    c("help.website", "Based on PdfCraft", HELP, None, Nothing, "external-link"),
     c("help.check_updates", "Check for updates…", HELP, None, Nothing, "cloud"),
     c("help.about", "About PdfKopi", HELP, None, Nothing, "info"),
 ];

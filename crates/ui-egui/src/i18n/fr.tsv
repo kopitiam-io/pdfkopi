@@ -67,11 +67,9 @@
 	OK	OK
 	Send feedback	Envoyer un commentaire
 	Kopitiam website	Site web de Kopitiam
-	Based on PdfCraft	Basé sur PdfCraft
 	Feedback	Commentaires
 	Made by Kopitiam	Par Kopitiam
-	Free, local-first document tools. Send feedback on GitHub.	Des outils documentaires gratuits qui fonctionnent en local. Vos commentaires sur GitHub.
-	Based on PdfCraft by the ArtCraft team.	Basé sur PdfCraft, de l’équipe ArtCraft.
+	Free, local-first document tools. Send feedback to support@kopitiam.io.	Des outils documentaires gratuits qui fonctionnent en local. Écrivez-nous à support@kopitiam.io.
 	Close	Fermer
 	Next / previous match	Correspondance suivante / précédente
 	Copy selected text	Copier le texte sélectionné
@@ -132,7 +130,7 @@
 	Previous page	Page précédente
 	Current page — type a page number or label (such as iv) and press Enter	Page actuelle — saisissez un numéro ou une étiquette de page (comme iv) et appuyez sur Entrée
 	Welcome to PdfKopi	Bienvenue dans PdfKopi
-	An open-source PDF workbench — local, private, and scriptable.	Un atelier PDF open source — local, privé et automatisable.
+	A PDF workbench — local, private, and scriptable.	Un atelier PDF — local, privé et automatisable.
 	Recommended tools	Outils recommandés
 	Use now	Utiliser
 	Open file	Ouvrir un fichier
@@ -273,7 +271,6 @@
 	Split document…	Fractionner le document…
 	Number pages…	Numéroter les pages…
 	Keyboard shortcuts	Raccourcis clavier
-	PdfKopi on GitHub	PdfKopi sur GitHub
 	Check for updates…	Rechercher des mises à jour…
 	About PdfKopi	À propos de PdfKopi
 	Export a PDF	Exporter un PDF
@@ -1343,7 +1340,7 @@
 	Recover	Récupérer
 	Discard	Abandonner
 	Version {v}	Version {v}
-	A clean-room, open-source PDF application written in Rust. MIT OR Apache-2.0.	Une application PDF open source, en salle blanche, écrite en Rust. MIT OR Apache-2.0.
+	A free, local-first PDF application written in Rust.	Une application PDF gratuite qui fonctionne en local, écrite en Rust.
 	Part of	Partie de
 	Summarize Options	Options du résumé
 	Choose a layout:	Choisissez une disposition :

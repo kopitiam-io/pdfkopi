@@ -63,7 +63,7 @@ pdfkopi-cli run    --script steps.json [--root DIR]      [{\"tool\": \"doc_open\
     "\
 pdfkopi-cli ui     --control FILE <method> [key=value …] [--out shot.png]
                                                            drive a running app started with --control FILE
-help and feedback: https://github.com/kopitiam-io/pdfkopi/issues"
+help and feedback: support@kopitiam.io"
 );
 
 fn main() -> ExitCode {
@@ -140,9 +140,8 @@ fn stdout_line(line: std::fmt::Arguments<'_>) -> Result<(), CliError> {
 
 fn version() -> Result<(), CliError> {
     stdout_line(format_args!("pdfkopi-cli {}", env!("CARGO_PKG_VERSION")))?;
-    stdout_line(format_args!("Feedback: {}", pdfcraft_engine::links::FEEDBACK))?;
+    stdout_line(format_args!("Feedback: {}", pdfcraft_engine::links::SUPPORT_EMAIL))?;
     stdout_line(format_args!("Web:      {}", pdfcraft_engine::links::APP_PAGE))?;
-    stdout_line(format_args!("Source:   {}", pdfcraft_engine::links::GITHUB))?;
     Ok(())
 }
 

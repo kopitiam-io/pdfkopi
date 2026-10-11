@@ -14,11 +14,7 @@ pub fn show(app: &mut PdfCraftApp, ui: &mut egui::Ui) {
     egui::ScrollArea::vertical().auto_shrink([false, false]).show(ui, |ui| {
         egui::Frame::NONE.inner_margin(egui::Margin { left: 36, right: 36, top: 28, bottom: 28 }).show(ui, |ui| {
             ui.label(egui::RichText::new(tl!("Welcome to PdfKopi")).font(theme::semibold(24.0)));
-            ui.label(
-                egui::RichText::new(tl!("An open-source PDF workbench — local, private, and scriptable."))
-                    .color(t.text_muted)
-                    .font(theme::regular(14.0)),
-            );
+            ui.label(egui::RichText::new(tl!("A PDF workbench — local, private, and scriptable.")).color(t.text_muted).font(theme::regular(14.0)));
             ui.add_space(14.0);
             egui::Frame::NONE
                 .fill(t.card)
@@ -31,7 +27,10 @@ pub fn show(app: &mut PdfCraftApp, ui: &mut egui::Ui) {
                         widgets::kopitiam_mark(ui, 28.0);
                         ui.vertical(|ui| {
                             ui.label(egui::RichText::new(tl!("Made by Kopitiam")).font(theme::semibold(15.0)));
-                            ui.label(egui::RichText::new(tl!("Free, local-first document tools. Send feedback on GitHub.")).color(t.text_muted));
+                            ui.label(
+                                egui::RichText::new(tl!("Free, local-first document tools. Send feedback to support@kopitiam.io."))
+                                    .color(t.text_muted),
+                            );
                         });
                     });
                     ui.add_space(8.0);

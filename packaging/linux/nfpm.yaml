@@ -17,7 +17,7 @@ vendor: Kopitiam
 homepage: https://kopitiam.io
 license: MIT OR Apache-2.0
 description: |-
-  Open-source, native PDF workbench: read, comment, fill and sign forms,
+  Free, native PDF workbench: read, comment, fill and sign forms,
   organize, combine, split, edit, redact, protect and export PDFs.
   Includes pdfkopi-cli, a headless command runner and opt-in MCP server.
 

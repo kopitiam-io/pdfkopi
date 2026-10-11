@@ -1,23 +1,22 @@
 //! Where PdfKopi and Kopitiam live on the web. One table, so the Help menu, the About dialog,
 //! the home screen, the CLI and the README agree.
 //!
-//! PdfKopi is a fork of PdfCraft by the ArtCraft team. Their brand license lets a fork say so in
-//! plain text (docs/BRANDING.md), which [`UPSTREAM`] does; it doesn't let a fork use their marks.
+//! PdfKopi is a fork of PdfCraft by the ArtCraft team; the credit their licenses require lives in
+//! NOTICE and ATTRIBUTION.md, shipped with every build (docs/BRANDING.md).
 
 use icu_properties::props::Script;
 
-/// The app's name in Kopitiam URLs (`github.com/kopitiam-io/{APP}`).
+/// The app's name in Kopitiam URLs.
 pub const APP: &str = "pdfkopi";
 
-/// Where to report a bug or ask for a feature. The command keeps its historical id
-/// (`help.discord`) so menus, shortcuts and upstream merges stay put.
-pub const FEEDBACK: &str = "https://github.com/kopitiam-io/pdfkopi/issues";
+/// Kopitiam's support address, for bug reports, questions and feature requests.
+pub const SUPPORT_EMAIL: &str = "support@kopitiam.io";
+/// Where to report a bug or ask for a feature: an email to [`SUPPORT_EMAIL`]. The command keeps
+/// its historical id (`help.discord`) so menus, shortcuts and upstream merges stay put.
+pub const FEEDBACK: &str = "mailto:support@kopitiam.io";
 pub const WEBSITE: &str = "https://kopitiam.io";
 /// Kept for callers that show "the app's page"; Kopitiam has one site for every app.
 pub const APP_PAGE: &str = WEBSITE;
-pub const GITHUB: &str = "https://github.com/kopitiam-io/pdfkopi";
-/// The project PdfKopi is based on.
-pub const UPSTREAM: &str = "https://github.com/storytold/pdfcraft";
 
 /// A link and the registry command that opens it.
 #[derive(Clone, Copy, Debug)]
@@ -33,8 +32,6 @@ pub struct Link {
 pub const LINKS: &[Link] = &[
     Link { command: "help.discord", label: "Send feedback", url: FEEDBACK, icon: "messages-square" },
     Link { command: "help.app_page", label: "Kopitiam website", url: WEBSITE, icon: "globe" },
-    Link { command: "help.github", label: "PdfKopi on GitHub", url: GITHUB, icon: "code-xml" },
-    Link { command: "help.website", label: "Based on PdfCraft", url: UPSTREAM, icon: "external-link" },
 ];
 
 pub fn for_command(id: &str) -> Option<&'static Link> {
@@ -349,11 +346,12 @@ fn mixes_scripts(label: &str) -> bool {
 mod tests {
     #[test]
     fn urls_follow_the_kopitiam_scheme() {
-        assert_eq!(super::GITHUB, format!("https://github.com/kopitiam-io/{}", super::APP));
-        assert_eq!(super::FEEDBACK, format!("{}/issues", super::GITHUB));
+        assert_eq!(super::FEEDBACK, format!("mailto:{}", super::SUPPORT_EMAIL));
+        assert!(super::document_url(super::FEEDBACK).is_ok(), "the feedback address is a well-formed email link");
         for l in super::LINKS {
             assert!(!l.url.contains("artcraft") && !l.label.contains("ArtCraft"), "no ArtCraft marks in a fork: {l:?}");
-            assert!(l.url.starts_with("https://"), "{}", l.url);
+            assert!(!l.url.contains("github.com"), "the app links to Kopitiam, not a code host: {l:?}");
+            assert!(l.url.starts_with("https://") || l.url.starts_with("mailto:"), "{}", l.url);
             assert!(crate::commands::command(l.command).is_some(), "{} is a registered command", l.command);
         }
     }

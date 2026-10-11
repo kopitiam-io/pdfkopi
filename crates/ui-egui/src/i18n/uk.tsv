@@ -93,11 +93,9 @@
 	OK	OK
 	Send feedback	Надіслати відгук
 	Kopitiam website	Сайт Kopitiam
-	Based on PdfCraft	На основі PdfCraft
 	Feedback	Відгук
 	Made by Kopitiam	Створено Kopitiam
-	Free, local-first document tools. Send feedback on GitHub.	Безкоштовні інструменти для документів, що працюють локально. Відгуки — на GitHub.
-	Based on PdfCraft by the ArtCraft team.	На основі PdfCraft від команди ArtCraft.
+	Free, local-first document tools. Send feedback to support@kopitiam.io.	Безкоштовні інструменти для документів, що працюють локально. Відгуки — на support@kopitiam.io.
 	Close	Закрити
 	Next / previous match	Наступний / попередній збіг
 	Copy selected text	Копіювати виділений текст
@@ -158,7 +156,7 @@
 	Previous page	Попередня сторінка
 	Current page — type a page number or label (such as iv) and press Enter	Поточна сторінка — введіть номер або позначку сторінки (наприклад iv) і натисніть Enter
 	Welcome to PdfKopi	Вітаємо в PdfKopi
-	An open-source PDF workbench — local, private, and scriptable.	Відкритий інструментарій для PDF — локальний, приватний і з підтримкою сценаріїв.
+	A PDF workbench — local, private, and scriptable.	Інструментарій для PDF — локальний, приватний і з підтримкою сценаріїв.
 	Recommended tools	Рекомендовані інструменти
 	Use now	Використати зараз
 	Open file	Відкрити файл
@@ -299,7 +297,6 @@
 	Split document…	Розділити документ…
 	Number pages…	Пронумерувати сторінки…
 	Keyboard shortcuts	Клавіатурні скорочення
-	PdfKopi on GitHub	PdfKopi на GitHub
 	Check for updates…	Перевірити оновлення…
 	About PdfKopi	Про PdfKopi
 	Export a PDF	Експортувати PDF
@@ -1362,7 +1359,7 @@
 	Recover	Відновити
 	Discard	Відкинути
 	Version {v}	Версія {v}
-	A clean-room, open-source PDF application written in Rust. MIT OR Apache-2.0.	Відкритий застосунок для PDF, написаний на Rust за принципом незалежної розробки. MIT OR Apache-2.0.
+	A free, local-first PDF application written in Rust.	Безкоштовний застосунок для PDF, що працює локально, написаний на Rust.
 	Part of	Частина
 	Summarize Options	Параметри зведення
 	Choose a layout:	Виберіть макет:

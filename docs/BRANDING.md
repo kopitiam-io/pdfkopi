@@ -6,8 +6,12 @@ PdfKopi is a Kopitiam product based on PdfCraft by the ArtCraft team.
 
 - **No ArtCraft marks.** PdfCraft's brand license (`docs/brand/LICENSE-brand.txt`) requires a fork
   to remove the ArtCraft name, wordmark and logos. They are removed from the app and the README.
-  We may say in plain text that PdfKopi is based on PdfCraft by the ArtCraft team, and we do (the
-  About dialog, the Help menu's "Based on PdfCraft" link, the README).
+  The app itself does not mention or link to PdfCraft. The credit and copyright notices that
+  PdfCraft's MIT/Apache-2.0 licenses require are kept in `NOTICE`, `LICENSE-*` and
+  `ATTRIBUTION.md`, which ship with every build, and in the README's credits.
+- **Feedback goes to Kopitiam support.** The Feedback button, the Help menu, the CLI and the
+  installers point to support@kopitiam.io and kopitiam.io, not to a code host. The app does not
+  describe itself as open source.
 - **The product name is PdfKopi.** Every name a user sees says PdfKopi: the window title, menus,
   dialogs, the home screen, catalogs, the CLI's help, and metadata the app writes into PDFs.
 - **Internal names stay upstream.** The `pdfcraft-*` crates, the `PdfCraftApp` type and

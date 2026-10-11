@@ -12,16 +12,15 @@
   </developer>
   <description>
     <p>
-      PdfKopi is an open-source PDF workbench. Read, comment on, fill in and sign PDFs;
-      organize, combine and split pages; edit, redact, protect and export documents.
+      PdfKopi is a free PDF workbench that works on your computer. Read, comment on, fill in and
+      sign PDFs; organize, combine and split pages; edit, redact, protect and export documents.
     </p>
   </description>
   <launchable type="desktop-id">io.kopitiam.pdfkopi.desktop</launchable>
   <icon type="stock">io.kopitiam.pdfkopi</icon>
   <!-- Only url types known to appstream 0.15 (Ubuntu 22.04, where CI validates): no vcs-browser. -->
   <url type="homepage">https://kopitiam.io</url>
-  <url type="bugtracker">https://github.com/kopitiam-io/pdfkopi/issues</url>
-  <url type="help">https://github.com/kopitiam-io/pdfkopi</url>
+  <url type="help">https://kopitiam.io</url>
   <categories>
     <category>Office</category>
     <category>Viewer</category>

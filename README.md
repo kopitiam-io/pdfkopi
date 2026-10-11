@@ -35,8 +35,8 @@ There is no public release yet; until then, build it from source as below.
 
 Early alpha. Viewing, search, organizing pages, combining and splitting, comments, forms,
 passwords, redaction, basic signatures and printing work today. Editing existing text, OCR beyond
-Latin script and Office export are still thin. Known bugs are tracked in the
-[issue tracker](https://github.com/kopitiam-io/pdfkopi/issues).
+Latin script and Office export are still thin. Report bugs to
+[support@kopitiam.io](mailto:support@kopitiam.io).
 
 ## Build and run
 
@@ -53,7 +53,8 @@ Development notes are in [docs/development.md](docs/development.md).
 
 ## Feedback
 
-Report bugs and request features on [GitHub](https://github.com/kopitiam-io/pdfkopi/issues).
+Report bugs, ask questions and request features at
+[support@kopitiam.io](mailto:support@kopitiam.io).
 
 ## License and credits
 
@@ -69,6 +70,6 @@ made, sponsored or endorsed by them and carries none of their marks (see
 upstream `pdfcraft-*` names so upstream fixes merge cleanly.
 
 <sub>Adobe and Acrobat are trademarks or registered trademarks of Adobe Inc. in the United States
-and/or other countries. PdfKopi is an independent, open-source project and is not affiliated with,
+and/or other countries. PdfKopi is an independent project and is not affiliated with,
 sponsored by or endorsed by Adobe Inc.; these names are used only to describe compatible
 workflows.</sub>
