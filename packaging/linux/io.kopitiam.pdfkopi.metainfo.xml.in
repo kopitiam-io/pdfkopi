@@ -21,7 +21,6 @@
   <!-- Only url types known to appstream 0.15 (Ubuntu 22.04, where CI validates): no vcs-browser. -->
   <url type="homepage">https://kopitiam.io</url>
   <url type="help">https://kopitiam.io</url>
-  <url type="contact">mailto:support@kopitiam.io</url>
   <categories>
     <category>Office</category>
     <category>Viewer</category>
