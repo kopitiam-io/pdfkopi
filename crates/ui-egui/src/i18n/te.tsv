@@ -113,8 +113,8 @@ comment menu	Edit	సవరించు
 	Single page	ఒకే పేజీ
 	Show cover page in two-page view	రెండు పేజీల వీక్షణలో కవర్ పేజీని చూపించు
 	Use system setting	సిస్టమ్ సెట్టింగ్‌ను ఉపయోగించు
-	Light gray	లేత బూడిద రంగు
-	Dark gray	ముదురు బూడిద రంగు
+	Day	పగలు
+	Night	రాత్రి
 	Comments	వ్యాఖ్యలు
 	Bookmarks	బుక్‌మార్క్‌లు
 	Fields	ఫీల్డ్‌లు
@@ -2112,3 +2112,4 @@ key	Space	స్పేస్
 	Collapse all	అన్నీ ముడుచు
 	Remove page	పేజీని తీసివేయి
 	Remove {n} pages	{n} పేజీలను తీసివేయి
+	Soon	త్వరలో

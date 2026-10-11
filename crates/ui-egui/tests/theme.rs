@@ -27,7 +27,7 @@ fn assert_theme(h: &Harness<'static, PdfCraftApp>, preference: ThemePreference, 
 fn open_toolbar(h: &mut Harness<'static, PdfCraftApp>, label: &str) {
     h.get_by_label(&format!("Display theme: {label}")).click();
     h.run_steps(3);
-    for choice in ["Use system setting", "Light gray", "Dark gray"] {
+    for choice in ["Use system setting", "Day", "Night"] {
         h.get_by_label(choice);
     }
 }
@@ -40,7 +40,7 @@ fn open_view_menu(h: &mut Harness<'static, PdfCraftApp>) {
     assert!(h.query_by_label("Switch light / dark theme").is_none());
     h.get_by_label("Display theme ⏵").hover();
     h.run_steps(3);
-    for choice in ["Use system setting", "Light gray", "Dark gray"] {
+    for choice in ["Use system setting", "Day", "Night"] {
         h.get_by_label(choice);
     }
 }
@@ -50,17 +50,17 @@ fn toolbar_and_view_menu_share_three_state_preferences() {
     let mut h = harness();
     // Explicit light wins even on a dark desktop, including egui's popup style.
     assert_theme(&h, ThemePreference::Light, ThemeKind::Light);
-    open_toolbar(&mut h, "Light gray");
+    open_toolbar(&mut h, "Day");
     h.get_by_label("Use system setting").click();
     h.run_steps(3);
     assert_theme(&h, ThemePreference::System, ThemeKind::Dark);
 
     open_view_menu(&mut h);
-    h.get_by_label("Light gray").click();
+    h.get_by_label("Day").click();
     h.run_steps(3);
     assert_theme(&h, ThemePreference::Light, ThemeKind::Light);
-    open_toolbar(&mut h, "Light gray");
-    h.get_by_label("Dark gray").click();
+    open_toolbar(&mut h, "Day");
+    h.get_by_label("Night").click();
     h.run_steps(3);
     assert_theme(&h, ThemePreference::Dark, ThemeKind::Dark);
 
@@ -72,7 +72,7 @@ fn toolbar_and_view_menu_share_three_state_preferences() {
     h.run_steps(3);
     assert_theme(&h, ThemePreference::System, ThemeKind::Light);
     open_toolbar(&mut h, "Use system setting");
-    h.get_by_label("Dark gray").click();
+    h.get_by_label("Night").click();
     h.run_steps(3);
     // A manual choice exits system mode and survives subsequent OS changes.
     h.input_mut().system_theme = Some(egui::Theme::Dark);

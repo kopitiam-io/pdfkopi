@@ -914,8 +914,8 @@
 	Single page	单页
 	Show cover page in two-page view	在双页视图中显示封面页
 	Use system setting	跟随系统设置
-	Light gray	浅灰色
-	Dark gray	深灰色
+	Day	白天
+	Night	夜间
 	Current page	当前页
 	Selected pages	选定的页面
 	Document language	文档语言
@@ -2146,3 +2146,4 @@ key	Space	空格
 	Collapse all	全部折叠
 	Remove page	删除页面
 	Remove {n} pages	删除 {n} 页
+	Soon	即将推出

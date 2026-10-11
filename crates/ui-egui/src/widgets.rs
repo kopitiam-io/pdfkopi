@@ -23,7 +23,7 @@ pub fn mode_tab(ui: &mut egui::Ui, label: &str, active: bool) -> Response {
     resp
 }
 
-/// Rounded pill button; `primary` fills with the accent.
+/// Squared-off button (Kopitiam's tile corners); `primary` fills with the accent.
 pub fn pill_button(ui: &mut egui::Ui, label: &str, primary: bool) -> Response {
     let t = Tokens::get(ui.ctx());
     let font = theme::medium(12.5);
@@ -31,11 +31,11 @@ pub fn pill_button(ui: &mut egui::Ui, label: &str, primary: bool) -> Response {
     let (rect, resp) = ui.allocate_exact_size(vec2(w + 26.0, 28.0), Sense::click());
     resp.widget_info(|| egui::WidgetInfo::labeled(egui::WidgetType::Button, ui.is_enabled(), label));
     let (fill, stroke, text) = if primary {
-        (if resp.hovered() { t.accent_text } else { t.accent }, Stroke::NONE, Color32::WHITE)
+        (if resp.hovered() { t.accent_hover } else { t.accent }, Stroke::NONE, Color32::WHITE)
     } else {
-        (if resp.hovered() { t.hover } else { t.card }, Stroke::new(1.2, t.text_muted), t.text)
+        (if resp.hovered() { t.hover } else { t.card }, Stroke::new(1.5, t.border), t.text)
     };
-    ui.painter().rect(rect, CornerRadius::same(14), fill, stroke, egui::StrokeKind::Inside);
+    ui.painter().rect(rect, CornerRadius::same(t.radius), fill, stroke, egui::StrokeKind::Inside);
     ui.painter().text(rect.center(), Align2::CENTER_CENTER, label, font, text);
     resp
 }
@@ -61,7 +61,7 @@ pub fn search_box(ui: &mut egui::Ui, placeholder: &str, width: f32) -> Response 
     let (rect, resp) = ui.allocate_exact_size(vec2(width, 32.0), Sense::click());
     resp.widget_info(|| egui::WidgetInfo::labeled(egui::WidgetType::Button, ui.is_enabled(), placeholder));
     let fill = if resp.hovered() { t.hover } else { t.field };
-    ui.painter().rect(rect, CornerRadius::same(16), fill, Stroke::new(1.0, t.border), egui::StrokeKind::Inside);
+    ui.painter().rect(rect, CornerRadius::same(t.radius), fill, Stroke::new(1.5, t.border), egui::StrokeKind::Inside);
     icons::paint(ui, Rect::from_min_size(rect.min + vec2(10.0, 8.0), vec2(16.0, 16.0)), "search", 15.0, t.text_muted);
     let shortcut = crate::commands::command_shortcut_label(ui.ctx(), "view.palette");
     let shortcut = ui.painter().layout_no_wrap(shortcut, theme::regular(11.5), t.text_faint);
@@ -89,7 +89,7 @@ pub fn section_title(ui: &mut egui::Ui, text: &str) {
     let t = Tokens::get(ui.ctx());
     ui.add_space(10.0);
     // Section titles across every panel go through here, so one translation point covers them.
-    ui.label(egui::RichText::new(tl!(text).to_uppercase()).font(theme::semibold(10.5)).color(t.text_faint).extra_letter_spacing(0.6));
+    ui.label(egui::RichText::new(tl!(text).to_uppercase()).font(theme::semibold(10.5)).color(t.text_faint).extra_letter_spacing(1.2));
     ui.add_space(2.0);
 }
 
@@ -177,7 +177,7 @@ pub fn progress_notice(app: &PdfCraftApp, ctx: &egui::Context) -> bool {
         .pivot(Align2::CENTER_BOTTOM)
         .fixed_pos(screen.center_bottom() - vec2(0.0, 28.0))
         .show(ctx, |ui| {
-            egui::Frame::NONE.fill(fill).corner_radius(CornerRadius::same(10)).inner_margin(egui::Margin::symmetric(16, 12)).show(ui, |ui| {
+            egui::Frame::NONE.fill(fill).corner_radius(CornerRadius::same(6)).inner_margin(egui::Margin::symmetric(16, 12)).show(ui, |ui| {
                 let width = 340.0_f32.min(screen.width() - 64.0).max(160.0);
                 ui.set_width(width);
                 ui.horizontal(|ui| {
@@ -226,7 +226,7 @@ pub fn progress_notice(app: &PdfCraftApp, ctx: &egui::Context) -> bool {
 /// The Kopitiam wordmark, set in type at `height` points (no image asset: type does the work).
 pub fn kopitiam_logo(ui: &mut egui::Ui, height: f32) -> Response {
     let t = Tokens::get(ui.ctx());
-    ui.label(egui::RichText::new("Kopitiam").font(theme::semibold(height)).color(t.text))
+    ui.label(egui::RichText::new("Kopitiam").font(theme::serif(height)).color(t.accent_text))
 }
 
 /// The Kopitiam mark: a `size`-point accent square with a "K", for spots that want an icon.
@@ -234,8 +234,8 @@ pub fn kopitiam_mark(ui: &mut egui::Ui, size: f32) -> Response {
     let t = Tokens::get(ui.ctx());
     let (rect, response) = ui.allocate_exact_size(vec2(size, size), Sense::hover());
     let painter = ui.painter();
-    painter.rect_filled(rect, CornerRadius::same((size * 0.22).round() as u8), t.accent);
-    painter.text(rect.center(), egui::Align2::CENTER_CENTER, "K", theme::semibold(size * 0.6), t.accent_text);
+    painter.rect_filled(rect, CornerRadius::same(t.radius), t.accent);
+    painter.text(rect.center(), egui::Align2::CENTER_CENTER, "K", theme::serif(size * 0.62), Color32::WHITE);
     response.widget_info(|| egui::WidgetInfo::labeled(egui::WidgetType::Image, true, "Kopitiam"));
     response.on_hover_text("Kopitiam")
 }
@@ -246,13 +246,21 @@ pub fn community_links(ui: &mut egui::Ui) -> Option<&'static str> {
     let mut clicked = None;
     ui.horizontal_wrapped(|ui| {
         ui.spacing_mut().item_spacing = vec2(8.0, 8.0);
-        for (i, l) in pdfcraft_engine::links::LINKS.iter().enumerate() {
-            let resp = icon_pill(ui, l.icon, tl!(l.label), i == 0);
-            if resp.on_hover_text(l.url).clicked() {
-                clicked = Some(l.command);
-            }
-        }
+        clicked = link_pills(ui, true);
     });
+    clicked
+}
+
+/// The link buttons of [`community_links`] laid out in the caller's row; `first_primary` fills the
+/// first one with the accent. Returns the registry command of the one clicked.
+pub fn link_pills(ui: &mut egui::Ui, first_primary: bool) -> Option<&'static str> {
+    let mut clicked = None;
+    for (i, l) in pdfcraft_engine::links::LINKS.iter().enumerate() {
+        let resp = icon_pill(ui, l.icon, tl!(l.label), first_primary && i == 0);
+        if resp.on_hover_text(l.url).clicked() {
+            clicked = Some(l.command);
+        }
+    }
     clicked
 }
 
@@ -268,16 +276,16 @@ pub fn split_pill(ui: &mut egui::Ui, icon: &str, label: &str, more: &str) -> (Re
     let arrow = ui.interact(more_rect, ui.id().with(("split-pill-more", label)), Sense::click());
     main.widget_info(|| egui::WidgetInfo::labeled(egui::WidgetType::Button, ui.is_enabled(), label));
     arrow.widget_info(|| egui::WidgetInfo::labeled(egui::WidgetType::Button, ui.is_enabled(), more));
-    let radius = CornerRadius::same(15);
-    ui.painter().rect(rect, radius, t.card, Stroke::new(1.2, t.text_muted), egui::StrokeKind::Inside);
-    let left = CornerRadius { nw: 15, sw: 15, ne: 0, se: 0 };
-    let right = CornerRadius { nw: 0, sw: 0, ne: 15, se: 15 };
+    let r = t.radius;
+    ui.painter().rect(rect, CornerRadius::same(r), t.card, Stroke::new(1.5, t.border), egui::StrokeKind::Inside);
+    let left = CornerRadius { nw: r, sw: r, ne: 0, se: 0 };
+    let right = CornerRadius { nw: 0, sw: 0, ne: r, se: r };
     for (r, resp, corners) in [(main_rect, &main, left), (more_rect, &arrow, right)] {
         if resp.hovered() {
             ui.painter().rect_filled(r.shrink(1.2), corners, t.hover);
         }
     }
-    ui.painter().vline(more_rect.left(), rect.y_range().shrink(7.0), Stroke::new(1.0, t.text_muted));
+    ui.painter().vline(more_rect.left(), rect.y_range().shrink(7.0), Stroke::new(1.0, t.border));
     crate::icons::paint(ui, Rect::from_min_size(rect.min + vec2(12.0, 7.0), vec2(16.0, 16.0)), icon, 15.0, t.text);
     ui.painter().text(rect.left_center() + vec2(34.0, 0.0), Align2::LEFT_CENTER, label, font, t.text);
     crate::icons::paint(ui, Rect::from_center_size(more_rect.center(), vec2(14.0, 14.0)), "chevron-down", 13.0, t.text);
@@ -292,11 +300,11 @@ pub fn icon_pill(ui: &mut egui::Ui, icon: &str, label: &str, primary: bool) -> R
     let (rect, resp) = ui.allocate_exact_size(vec2(w + 46.0, 30.0), Sense::click());
     resp.widget_info(|| egui::WidgetInfo::labeled(egui::WidgetType::Button, ui.is_enabled(), label));
     let (fill, stroke, text) = if primary {
-        (if resp.hovered() { t.accent_text } else { t.accent }, Stroke::NONE, Color32::WHITE)
+        (if resp.hovered() { t.accent_hover } else { t.accent }, Stroke::NONE, Color32::WHITE)
     } else {
-        (if resp.hovered() { t.hover } else { t.card }, Stroke::new(1.2, t.text_muted), t.text)
+        (if resp.hovered() { t.hover } else { t.card }, Stroke::new(1.5, t.border), t.text)
     };
-    ui.painter().rect(rect, CornerRadius::same(15), fill, stroke, egui::StrokeKind::Inside);
+    ui.painter().rect(rect, CornerRadius::same(t.radius), fill, stroke, egui::StrokeKind::Inside);
     crate::icons::paint(ui, Rect::from_min_size(rect.min + vec2(12.0, 7.0), vec2(16.0, 16.0)), icon, 15.0, text);
     ui.painter().text(rect.left_center() + vec2(34.0, 0.0), Align2::LEFT_CENTER, label, font, text);
     resp

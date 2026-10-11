@@ -907,8 +907,8 @@
 	Single page	Единична страница
 	Show cover page in two-page view	Показвай корицата в изглед с две страници
 	Use system setting	Използвай системната настройка
-	Light gray	Светлосиво
-	Dark gray	Тъмносиво
+	Day	Дневна
+	Night	Нощна
 	Current page	Текуща страница
 	Selected pages	Избрани страници
 	Document language	Език на документа
@@ -2144,3 +2144,4 @@ key	Space	Интервал
 	Collapse all	Свий всички
 	Remove page	Премахни страницата
 	Remove {n} pages	Премахни {n} страници
+	Soon	Скоро

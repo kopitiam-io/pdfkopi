@@ -109,8 +109,8 @@
 	Single page	Une seule page
 	Show cover page in two-page view	Afficher la couverture en affichage sur deux pages
 	Use system setting	Utiliser le réglage du système
-	Light gray	Gris clair
-	Dark gray	Gris foncé
+	Day	Jour
+	Night	Nuit
 	Comments	Commentaires
 	Bookmarks	Signets
 	Fields	Champs
@@ -2182,3 +2182,4 @@ key	Space	Espace
 	Collapse all	Tout réduire
 	Remove page	Retirer la page
 	Remove {n} pages	Retirer {n} pages
+	Soon	Bientôt

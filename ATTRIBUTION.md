@@ -4,7 +4,7 @@
 
 Every asset PdfCraft includes, bundles or uses to build its published material, with its author, source and licence. The policy is in [AGENTS.md](AGENTS.md) §1. The machine-readable list, with SHA-256 hashes, is [ATTRIBUTION.toml](ATTRIBUTION.toml). Licence texts are kept beside the assets and summarised in [NOTICE](NOTICE).
 
-## In this repository (256)
+## In this repository (257)
 
 | Asset | Title | Author | Licence | Source | Used for |
 |---|---|---|---|---|---|
@@ -202,6 +202,7 @@ Every asset PdfCraft includes, bundles or uses to build its published material, 
 | `assets/fonts/Inter-Regular.ttf` | Inter Regular | The Inter Project Authors (Rasmus Andersson) | OFL-1.1 | https://github.com/rsms/inter | UI font, embedded in the app; demo PDF labels |
 | `assets/fonts/Inter-Medium.ttf` | Inter Medium | The Inter Project Authors (Rasmus Andersson) | OFL-1.1 | https://github.com/rsms/inter | UI font, embedded in the app; demo PDF labels |
 | `assets/fonts/Inter-SemiBold.ttf` | Inter SemiBold | The Inter Project Authors (Rasmus Andersson) | OFL-1.1 | https://github.com/rsms/inter | UI font, embedded in the app; demo PDF labels |
+| `assets/fonts/PlayfairDisplay-SemiBold.ttf` | Playfair Display SemiBold | The Playfair Display Project Authors (Claus Eggers Sørensen) | OFL-1.1 | https://fonts.google.com/specimen/Playfair+Display (Google Fonts static instance, unmodified) | Heading font (Kopitiam's display face), embedded in the app |
 | `assets/fonts/JetBrainsMono-Regular.ttf` | JetBrains Mono Regular | The JetBrains Mono Project Authors | OFL-1.1 | https://github.com/JetBrains/JetBrainsMono | UI monospace font; demo PDF code |
 | `vendor/hayro-interpret/assets/FoxitDingbats.pfb` | FoxitDingbats (standard-14 substitute font) | Foxit Software Inc. / PDFium Authors | BSD-3-Clause | https://pdfium.googlesource.com/pdfium (via hayro-interpret 0.7.0 assets/) | Renders non-embedded standard-14 fonts (vendored hayro-interpret) |
 | `vendor/hayro-interpret/assets/FoxitFixed.pfb` | FoxitFixed (standard-14 substitute font) | Foxit Software Inc. / PDFium Authors | BSD-3-Clause | https://pdfium.googlesource.com/pdfium (via hayro-interpret 0.7.0 assets/) | Renders non-embedded standard-14 fonts (vendored hayro-interpret) |

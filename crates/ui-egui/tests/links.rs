@@ -30,7 +30,7 @@ fn feedback_button_in_the_top_bar_emails_support() {
 fn home_screen_links() {
     for (label, url) in [("Send feedback", links::FEEDBACK), ("Kopitiam website", "https://kopitiam.io")] {
         let mut h = harness(|_| {});
-        h.get_by_label("Made by Kopitiam");
+        h.get_by_label("Open file");
         h.get_by_label(label).click();
         h.run_steps(2);
         assert_eq!(h.state().last_opened_url.as_deref(), Some(url), "{label}");

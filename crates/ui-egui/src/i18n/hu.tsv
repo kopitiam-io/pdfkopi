@@ -107,8 +107,8 @@
 	Single page	Egy oldal
 	Show cover page in two-page view	Borító megjelenítése kétoldalas nézetben
 	Use system setting	Rendszerbeállítás használata
-	Light gray	Világosszürke
-	Dark gray	Sötétszürke
+	Day	Nappali
+	Night	Éjszakai
 	Comments	Megjegyzések
 	Bookmarks	Könyvjelzők
 	Fields	Mezők
@@ -2180,3 +2180,4 @@ key	Space	Szóköz
 	Collapse all	Összes összecsukása
 	Remove page	Oldal eltávolítása
 	Remove {n} pages	{n} oldal eltávolítása
+	Soon	Hamarosan
