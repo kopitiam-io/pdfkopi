@@ -5,13 +5,76 @@
 //! the control channel later) all call `PdfCraftApp::execute`.
 
 use pdfcraft_engine::Edit;
-use pdfcraft_engine::commands::{self, COMMANDS, CommandSpec};
+use pdfcraft_engine::commands::{self, COMMANDS, CommandSpec, Shortcut};
 
 use crate::{
     Dialog, Mode, PdfCraftApp, PropsTab, RightPanel, SaveTarget,
     theme::{ThemeKind, ThemePreference},
     widgets,
 };
+
+/// Keys the document view handles itself (`canvas::shortcuts`), for the View menu, tooltips and
+/// Help ▸ Keyboard shortcuts. Keep them in step with the bindings there.
+pub(crate) const ACTUAL_SIZE: Shortcut = Shortcut::cmd("1");
+pub(crate) const PAGE_LEVEL: Shortcut = Shortcut::cmd("0");
+pub(crate) const FIT_WIDTH: Shortcut = Shortcut::cmd("2");
+pub(crate) const ZOOM_IN: Shortcut = Shortcut::cmd("+");
+pub(crate) const ZOOM_OUT: Shortcut = Shortcut::cmd("−");
+pub(crate) const ROTATE_CW: Shortcut = Shortcut::cmd_shift("+");
+pub(crate) const ROTATE_CCW: Shortcut = Shortcut::cmd_shift("−");
+pub(crate) const PREV_VIEW: Shortcut = Shortcut::cmd("[");
+pub(crate) const NEXT_VIEW: Shortcut = Shortcut::cmd("]");
+pub(crate) const FIND_NEXT: Shortcut = Shortcut::cmd("G");
+pub(crate) const FIND_PREV: Shortcut = Shortcut::cmd_shift("G");
+pub(crate) const COPY: Shortcut = Shortcut::cmd("C");
+pub(crate) const SELECT_ALL: Shortcut = Shortcut::cmd("A");
+pub(crate) const PAGE_PREV: Shortcut = Shortcut::cmd("←");
+pub(crate) const PAGE_NEXT: Shortcut = Shortcut::cmd("→");
+
+/// Whether shortcuts are written the macOS way (`⇧⌘S`) rather than `Ctrl+Shift+S`. egui knows the
+/// platform from the build target, and on the web from the browser's user agent.
+pub(crate) fn mac_shortcuts(ctx: &egui::Context) -> bool {
+    ctx.os() == egui::os::OperatingSystem::Mac
+}
+
+/// How `s` is written on this platform, using the resolved current interface language.
+pub(crate) fn shortcut_label(ctx: &egui::Context, s: Shortcut) -> String {
+    let key = crate::i18n::key_name(s.key);
+    if mac_shortcuts(ctx) {
+        Shortcut { key, ..s }.label(true)
+    } else {
+        let mut parts = Vec::new();
+        if s.command || s.mac_ctrl {
+            parts.push(crate::i18n::key_name("Ctrl"));
+        }
+        if s.shift {
+            parts.push(crate::i18n::key_name("Shift"));
+        }
+        parts.push(key);
+        parts.join("+")
+    }
+}
+
+/// The command modifier for help text such as “Strg-scroll”; bindings stay in the engine.
+pub(crate) fn command_modifier_label(ctx: &egui::Context) -> &'static str {
+    if mac_shortcuts(ctx) { Shortcut::command_name(true) } else { crate::i18n::key_name("Ctrl") }
+}
+
+/// How a registered command's shortcut is written on this platform ("" without one).
+pub(crate) fn command_shortcut_label(ctx: &egui::Context, id: &str) -> String {
+    commands::command(id).and_then(|c| c.shortcut).map(|s| shortcut_label(ctx, s)).unwrap_or_default()
+}
+
+/// A translated tooltip with a `{key}` placeholder, filled with `s` as written on this platform:
+/// "Zoom in ({key})" → "Zoom in (Ctrl++)".
+pub(crate) fn key_tip(ctx: &egui::Context, template: &str, s: Shortcut) -> String {
+    crate::i18n::fmt(template, &[("key", &shortcut_label(ctx, s))])
+}
+
+/// [`key_tip`] with a registered command's shortcut, so the tooltip names the real binding.
+pub(crate) fn command_tip(ctx: &egui::Context, template: &str, id: &str) -> String {
+    crate::i18n::fmt(template, &[("key", &command_shortcut_label(ctx, id))])
+}
 
 impl PdfCraftApp {
     /// Whether a registered command can run now. The engine judges the document (security,
@@ -128,6 +191,7 @@ impl PdfCraftApp {
                 }
             }
             "bookmark.add" => self.bookmark_action(crate::panels::BmAction::New),
+            "bookmark.from_structure" => self.bookmark_action(crate::panels::BmAction::FromStructure),
             "edit.undo" => self.undo(),
             "edit.redo" => self.redo(),
             "edit.find" => {
@@ -406,6 +470,7 @@ impl PdfCraftApp {
                 }
             }
             "view.marquee_zoom" => self.quick_tool = crate::QuickTool::MarqueeZoom,
+            "edit.column_select" => self.quick_tool = crate::QuickTool::ColumnSelect,
             "edit.snapshot" => {
                 self.quick_tool = crate::QuickTool::Snapshot;
                 self.notify_tr("Drag a rectangle around the area to copy");
@@ -508,7 +573,7 @@ impl PdfCraftApp {
                 self.boxes_draft.seeded = None;
                 self.dialog = Some(Dialog::PageBoxes);
             }
-            "page.extract" => self.dialog = Some(Dialog::Extract),
+            "page.extract" => self.open_extract_dialog(),
             "page.rotate_dialog" => {
                 if let Some(i) = active {
                     let n = self.session.get(self.views[i].id).map_or(1, |d| d.info.pages.len());
@@ -570,7 +635,6 @@ impl PdfCraftApp {
 
 /// Render a top-level menu's registered commands (with live labels, shortcuts and enablement).
 pub(crate) fn registry_menu(app: &mut PdfCraftApp, ui: &mut egui::Ui, menu: &str) {
-    let mac = cfg!(target_os = "macos") || cfg!(target_arch = "wasm32");
     for spec in commands::menu(menu) {
         let label = commands::current_label(spec, &app.session, app.active_ids().map(|(_, id)| id));
         let label = crate::i18n::menu_label(spec.id, &label);
@@ -607,7 +671,7 @@ pub(crate) fn registry_menu(app: &mut PdfCraftApp, ui: &mut egui::Ui, menu: &str
             }
             continue;
         }
-        let shortcut = spec.shortcut.map(|s| s.label(mac)).unwrap_or_default();
+        let shortcut = spec.shortcut.map(|s| shortcut_label(ui.ctx(), s)).unwrap_or_default();
         let enabled = app.command_enabled(spec);
         let resp = ui.add_enabled(enabled, egui::Button::new(label).shortcut_text(shortcut));
         if resp.clicked() {
@@ -616,4 +680,33 @@ pub(crate) fn registry_menu(app: &mut PdfCraftApp, ui: &mut egui::Ui, menu: &str
         }
     }
     let _ = widgets::menu_item;
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use egui::os::OperatingSystem;
+
+    #[test]
+    fn localized_shortcut_labels_follow_language_and_platform() {
+        let previous = crate::i18n::current();
+        let ctx = egui::Context::default();
+        for os in [OperatingSystem::Windows, OperatingSystem::Nix] {
+            ctx.set_os(os);
+            crate::i18n::set_current(crate::i18n::Lang::from_code("de").unwrap());
+            assert_eq!(shortcut_label(&ctx, Shortcut::cmd("K")), "Strg+K");
+            assert_eq!(shortcut_label(&ctx, Shortcut::cmd_shift("S")), "Strg+Umschalt+S");
+            assert_eq!(command_shortcut_label(&ctx, "view.read_mode"), "Strg+H");
+            assert_eq!(command_modifier_label(&ctx), "Strg");
+            assert_eq!(Shortcut::cmd_shift("S").label(false), "Ctrl+Shift+S", "engine/control labels keep their stable spelling");
+            crate::i18n::set_current(crate::i18n::Lang::EN);
+            assert_eq!(shortcut_label(&ctx, Shortcut::cmd_shift("S")), "Ctrl+Shift+S");
+        }
+        ctx.set_os(OperatingSystem::Mac);
+        crate::i18n::set_current(crate::i18n::Lang::from_code("de").unwrap());
+        assert_eq!(shortcut_label(&ctx, Shortcut::cmd_shift("S")), "⇧⌘S");
+        assert_eq!(command_shortcut_label(&ctx, "view.read_mode"), "⌃⌘H");
+        assert_eq!(command_modifier_label(&ctx), "⌘");
+        crate::i18n::set_current(previous);
+    }
 }
