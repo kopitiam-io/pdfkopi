@@ -1,15 +1,23 @@
-//! Where PdfCraft and the ArtCraft community live on the web. One table, so the Help menu, the
-//! About dialog, the home screen, the CLI and the README agree.
+//! Where PdfKopi and Kopitiam live on the web. One table, so the Help menu, the About dialog,
+//! the home screen, the CLI and the README agree.
+//!
+//! PdfKopi is a fork of PdfCraft by the ArtCraft team. Their brand license lets a fork say so in
+//! plain text (docs/BRANDING.md), which [`UPSTREAM`] does; it doesn't let a fork use their marks.
 
 use icu_properties::props::Script;
 
-/// The app's name in ArtCraft URLs (`getartcraft.com/apps/{APP}`, `github.com/storytold/{APP}`).
-pub const APP: &str = "pdfcraft";
+/// The app's name in Kopitiam URLs (`github.com/kopitiam-io/{APP}`).
+pub const APP: &str = "pdfkopi";
 
-pub const DISCORD: &str = "https://discord.gg/artcraft";
-pub const WEBSITE: &str = "https://getartcraft.com";
-pub const APP_PAGE: &str = "https://getartcraft.com/apps/pdfcraft";
-pub const GITHUB: &str = "https://github.com/storytold/pdfcraft";
+/// Where to report a bug or ask for a feature. The command keeps its historical id
+/// (`help.discord`) so menus, shortcuts and upstream merges stay put.
+pub const FEEDBACK: &str = "https://github.com/kopitiam-io/pdfkopi/issues";
+pub const WEBSITE: &str = "https://kopitiam.io";
+/// Kept for callers that show "the app's page"; Kopitiam has one site for every app.
+pub const APP_PAGE: &str = WEBSITE;
+pub const GITHUB: &str = "https://github.com/kopitiam-io/pdfkopi";
+/// The project PdfKopi is based on.
+pub const UPSTREAM: &str = "https://github.com/storytold/pdfcraft";
 
 /// A link and the registry command that opens it.
 #[derive(Clone, Copy, Debug)]
@@ -21,12 +29,12 @@ pub struct Link {
     pub icon: &'static str,
 }
 
-/// In the order they are shown. Discord comes first: it is where people get help fastest.
+/// In the order they are shown. Feedback comes first: it is where bugs get fixed fastest.
 pub const LINKS: &[Link] = &[
-    Link { command: "help.discord", label: "Join the ArtCraft Discord", url: DISCORD, icon: "messages-square" },
-    Link { command: "help.app_page", label: "PdfCraft web page", url: APP_PAGE, icon: "globe" },
-    Link { command: "help.github", label: "PdfCraft on GitHub", url: GITHUB, icon: "code-xml" },
-    Link { command: "help.website", label: "ArtCraft website", url: WEBSITE, icon: "external-link" },
+    Link { command: "help.discord", label: "Send feedback", url: FEEDBACK, icon: "messages-square" },
+    Link { command: "help.app_page", label: "Kopitiam website", url: WEBSITE, icon: "globe" },
+    Link { command: "help.github", label: "PdfKopi on GitHub", url: GITHUB, icon: "code-xml" },
+    Link { command: "help.website", label: "Based on PdfCraft", url: UPSTREAM, icon: "external-link" },
 ];
 
 pub fn for_command(id: &str) -> Option<&'static Link> {
@@ -340,10 +348,11 @@ fn mixes_scripts(label: &str) -> bool {
 #[cfg(test)]
 mod tests {
     #[test]
-    fn urls_follow_the_artcraft_scheme() {
-        assert_eq!(super::APP_PAGE, format!("{}/apps/{}", super::WEBSITE, super::APP));
-        assert_eq!(super::GITHUB, format!("https://github.com/storytold/{}", super::APP));
+    fn urls_follow_the_kopitiam_scheme() {
+        assert_eq!(super::GITHUB, format!("https://github.com/kopitiam-io/{}", super::APP));
+        assert_eq!(super::FEEDBACK, format!("{}/issues", super::GITHUB));
         for l in super::LINKS {
+            assert!(!l.url.contains("artcraft") && !l.label.contains("ArtCraft"), "no ArtCraft marks in a fork: {l:?}");
             assert!(l.url.starts_with("https://"), "{}", l.url);
             assert!(crate::commands::command(l.command).is_some(), "{} is a registered command", l.command);
         }

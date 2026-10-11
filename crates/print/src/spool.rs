@@ -35,7 +35,7 @@ pub struct Job {
 
 impl Default for Job {
     fn default() -> Self {
-        Job { printer: None, copies: 1, collate: true, duplex: Duplex::Off, grayscale: false, title: "PdfCraft".into(), options: Vec::new() }
+        Job { printer: None, copies: 1, collate: true, duplex: Duplex::Off, grayscale: false, title: "PdfKopi".into(), options: Vec::new() }
     }
 }
 
@@ -277,7 +277,7 @@ pub fn open_printer_preferences(printer: &str) -> Result<(), PrintError> {
 /// interface language (`AppleLanguages`) unless `SOFTWARE` is set, in which case it uses `LANG`.
 fn lpstat_with(args: &[&str]) -> std::process::Command {
     let mut c = std::process::Command::new("lpstat");
-    c.args(args).env("LC_ALL", "C").env("LANG", "C").env("SOFTWARE", "PdfCraft");
+    c.args(args).env("LC_ALL", "C").env("LANG", "C").env("SOFTWARE", "PdfKopi");
     c
 }
 
