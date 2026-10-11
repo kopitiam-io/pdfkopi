@@ -136,8 +136,8 @@
 	Single page	単一ページ
 	Show cover page in two-page view	見開き表示で表紙を単独表示
 	Use system setting	システム設定を使用
-	Light gray	ライトグレー
-	Dark gray	ダークグレー
+	Day	昼モード
+	Night	夜モード
 	Comments	コメント
 	Bookmarks	しおり
 	Fields	フィールド
@@ -2182,3 +2182,4 @@ key	Space	スペース
 	Collapse all	すべて折りたたむ
 	Remove page	ページを削除
 	Remove {n} pages	{n} ページを削除
+	Soon	近日公開

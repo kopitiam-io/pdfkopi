@@ -109,8 +109,8 @@
 	Single page	Einzelseite
 	Show cover page in two-page view	Deckblatt in Doppelseitenansicht anzeigen
 	Use system setting	Systemeinstellung verwenden
-	Light gray	Hellgrau
-	Dark gray	Dunkelgrau
+	Day	Tag
+	Night	Nacht
 	Comments	Kommentare
 	Bookmarks	Lesezeichen
 	Fields	Felder
@@ -2182,3 +2182,4 @@ key	Space	Leertaste
 	Collapse all	Alle einklappen
 	Remove page	Seite entfernen
 	Remove {n} pages	{n} Seiten entfernen
+	Soon	Bald

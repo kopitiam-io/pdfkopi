@@ -1110,7 +1110,7 @@ pub fn show(app: &mut PdfCraftApp, ctx: &egui::Context) {
                         ui.label(tl!("A free, local-first PDF application written in Rust."));
                         ui.label(
                             egui::RichText::new(
-                                "Rendering: hayro (bootstrap) · UI: egui · Icons: Lucide (ISC) · Fonts: Inter, JetBrains Mono, Dancing Script (OFL)",
+                                "Rendering: hayro (bootstrap) · UI: egui · Icons: Lucide (ISC) · Fonts: Inter, Playfair Display, JetBrains Mono, Dancing Script (OFL)",
                             )
                             .color(t.text_muted)
                             .small(),

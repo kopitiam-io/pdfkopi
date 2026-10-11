@@ -135,8 +135,8 @@
 	Single page	Одна сторінка
 	Show cover page in two-page view	Показувати обкладинку в режимі двох сторінок
 	Use system setting	Використовувати системні налаштування
-	Light gray	Світло-сіра
-	Dark gray	Темно-сіра
+	Day	Денна
+	Night	Нічна
 	Comments	Коментарі
 	Bookmarks	Закладки
 	Fields	Поля
@@ -2205,3 +2205,4 @@ key	Space	Пробіл
 	Collapse all	Згорнути всі
 	Remove page	Видалити сторінку
 	Remove {n} pages	Видалити сторінки: {n}
+	Soon	Незабаром

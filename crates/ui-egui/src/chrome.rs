@@ -9,7 +9,7 @@ use crate::{Dialog, Mode, PdfCraftApp, PropsTab, RightPanel, icons, widgets};
 pub fn tab_strip(app: &mut PdfCraftApp, ui: &mut egui::Ui) {
     let t = Tokens::get(ui.ctx());
     let left = if cfg!(target_os = "macos") && app.integrated_titlebar { 80 } else { 8 };
-    egui::Panel::top("tab_strip")
+    let strip_panel = egui::Panel::top("tab_strip")
         .exact_size(38.0)
         .frame(egui::Frame::NONE.fill(t.titlebar).inner_margin(egui::Margin { left, right: 10, top: 0, bottom: 0 }))
         .show(ui, |ui| {
@@ -124,8 +124,8 @@ pub fn tab_strip(app: &mut PdfCraftApp, ui: &mut egui::Ui) {
                 ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
                     let (icon, label) = match app.theme_preference {
                         ThemePreference::System => ("settings", tl!("Use system setting")),
-                        ThemePreference::Light => ("sun", tl!("Light gray")),
-                        ThemePreference::Dark => ("moon", tl!("Dark gray")),
+                        ThemePreference::Light => ("sun", tl!("Day")),
+                        ThemePreference::Dark => ("moon", tl!("Night")),
                     };
                     let tip = format!("{}: {label}", tl!("Display theme"));
                     let response = icons::button(ui, icon, 28.0, false, &tip);
@@ -140,14 +140,16 @@ pub fn tab_strip(app: &mut PdfCraftApp, ui: &mut egui::Ui) {
                 });
             });
         });
+    // The timber strip along the very top of the window, over the tab strip's own top margin.
+    theme::paint_timber_strip(ui.painter(), strip_panel.response.rect, &t);
 }
 
 /// Both theme entry points use the same choices and command path.
 fn theme_menu(app: &mut PdfCraftApp, ui: &mut egui::Ui) {
     for (preference, command, label) in [
         (ThemePreference::System, "view.theme.system", "Use system setting"),
-        (ThemePreference::Light, "view.theme.light", "Light gray"),
-        (ThemePreference::Dark, "view.theme.dark", "Dark gray"),
+        (ThemePreference::Light, "view.theme.light", "Day"),
+        (ThemePreference::Dark, "view.theme.dark", "Night"),
     ] {
         if ui.radio(app.theme_preference == preference, tl!(label)).clicked() {
             app.execute(command);

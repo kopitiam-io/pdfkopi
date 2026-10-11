@@ -13,37 +13,33 @@ pub fn show(app: &mut PdfCraftApp, ui: &mut egui::Ui) {
     let t = Tokens::get(ui.ctx());
     egui::ScrollArea::vertical().auto_shrink([false, false]).show(ui, |ui| {
         egui::Frame::NONE.inner_margin(egui::Margin { left: 36, right: 36, top: 28, bottom: 28 }).show(ui, |ui| {
-            ui.label(egui::RichText::new(tl!("Welcome to PdfKopi")).font(theme::semibold(24.0)));
-            ui.label(egui::RichText::new(tl!("A PDF workbench — local, private, and scriptable.")).color(t.text_muted).font(theme::regular(14.0)));
-            ui.add_space(14.0);
-            egui::Frame::NONE
-                .fill(t.card)
-                .stroke(Stroke::new(1.0, t.border))
-                .corner_radius(CornerRadius::same(12))
-                .inner_margin(egui::Margin::same(14))
-                .show(ui, |ui| {
-                    ui.set_width(ui.available_width());
-                    ui.horizontal(|ui| {
-                        widgets::kopitiam_mark(ui, 28.0);
-                        ui.vertical(|ui| {
-                            ui.label(egui::RichText::new(tl!("Made by Kopitiam")).font(theme::semibold(15.0)));
-                            ui.label(
-                                egui::RichText::new(tl!("Free, local-first document tools. Send feedback to support@kopitiam.io."))
-                                    .color(t.text_muted),
-                            );
-                        });
-                    });
-                    ui.add_space(8.0);
-                    if let Some(cmd) = widgets::community_links(ui) {
-                        app.execute(cmd);
-                    }
-                });
-            ui.add_space(22.0);
+            // Kopitiam's editorial voice: a jade kicker, a serif headline, then the actions.
+            ui.label(
+                egui::RichText::new(tl!("Made by Kopitiam").to_uppercase())
+                    .font(theme::semibold(11.0))
+                    .color(t.accent_text)
+                    .extra_letter_spacing(1.4),
+            );
+            ui.add_space(4.0);
+            ui.label(egui::RichText::new(tl!("Welcome to PdfKopi")).font(theme::serif(34.0)));
+            ui.label(egui::RichText::new(tl!("A PDF workbench — local, private, and scriptable.")).color(t.text_muted).font(theme::regular(15.0)));
+            ui.add_space(16.0);
+            ui.horizontal_wrapped(|ui| {
+                ui.spacing_mut().item_spacing = vec2(10.0, 10.0);
+                let tip = crate::commands::command_tip(ui.ctx(), tl!("Open a PDF ({key})"), "file.open");
+                if widgets::icon_pill(ui, "folder-open", tl!("Open file"), true).on_hover_text(tip).clicked() {
+                    app.open_dialog();
+                }
+                if let Some(cmd) = widgets::link_pills(ui, false) {
+                    app.execute(cmd);
+                }
+            });
+            ui.add_space(24.0);
 
             egui::Frame::NONE
                 .fill(t.card)
-                .stroke(Stroke::new(1.0, t.border))
-                .corner_radius(CornerRadius::same(12))
+                .stroke(Stroke::new(1.5, t.border))
+                .corner_radius(CornerRadius::same(t.radius + 2))
                 .inner_margin(egui::Margin::same(18))
                 .show(ui, |ui| {
                     ui.set_width(ui.available_width());
@@ -56,9 +52,9 @@ pub fn show(app: &mut PdfCraftApp, ui: &mut egui::Ui) {
                             let (rect, resp) = ui.allocate_exact_size(vec2(190.0, 104.0), Sense::click());
                             resp.widget_info(|| egui::WidgetInfo::labeled(egui::WidgetType::Button, true, tl!(g.label)));
                             let fill = if resp.hovered() { t.hover } else { t.card };
-                            ui.painter().rect(rect, CornerRadius::same(10), fill, Stroke::new(1.0, t.divider), egui::StrokeKind::Inside);
-                            let color = egui::Color32::from_rgb(g.hue[0], g.hue[1], g.hue[2]);
-                            icons::paint(ui, Rect::from_min_size(rect.min + vec2(14.0, 14.0), vec2(22.0, 22.0)), g.icon, 21.0, color);
+                            ui.painter().rect(rect, CornerRadius::same(t.radius), fill, Stroke::new(1.5, t.border), egui::StrokeKind::Inside);
+                            // One accent: every tool icon is jade, as on kopitiam.io.
+                            icons::paint(ui, Rect::from_min_size(rect.min + vec2(14.0, 14.0), vec2(22.0, 22.0)), g.icon, 21.0, t.accent_text);
                             let mut title_job = egui::text::LayoutJob::simple_singleline(tl!(g.label).to_owned(), theme::semibold(13.5), t.text);
                             title_job.wrap =
                                 egui::text::TextWrapping { max_width: rect.width() - 58.0, max_rows: 1, break_anywhere: true, ..Default::default() };
@@ -89,20 +85,6 @@ pub fn show(app: &mut PdfCraftApp, ui: &mut egui::Ui) {
                                 app.left_open = true;
                             }
                         }
-                        let (rect, resp) = ui.allocate_exact_size(vec2(170.0, 104.0), Sense::click());
-                        resp.widget_info(|| egui::WidgetInfo::labeled(egui::WidgetType::Button, true, tl!("Open file")));
-                        ui.painter().rect(
-                            rect,
-                            CornerRadius::same(10),
-                            if resp.hovered() { t.hover } else { t.pasteboard },
-                            Stroke::new(1.0, t.divider),
-                            egui::StrokeKind::Inside,
-                        );
-                        icons::paint(ui, Rect::from_center_size(rect.center() - vec2(0.0, 16.0), vec2(28.0, 28.0)), "folder-open", 26.0, t.icon);
-                        ui.painter().text(rect.center() + vec2(0.0, 22.0), Align2::CENTER_CENTER, tl!("Open file"), theme::semibold(13.0), t.text);
-                        if resp.clicked() {
-                            app.open_dialog();
-                        }
                     });
                 });
 
@@ -115,7 +97,7 @@ pub fn show(app: &mut PdfCraftApp, ui: &mut egui::Ui) {
             ui.add_space(26.0);
             let mut clear = false;
             ui.horizontal(|ui| {
-                ui.label(egui::RichText::new(tl!("Recent")).font(theme::semibold(17.0)));
+                ui.label(egui::RichText::new(tl!("Recent")).font(theme::serif(22.0)));
                 if !app.recent.is_empty() {
                     ui.with_layout(egui::Layout::right_to_left(egui::Align::Center), |ui| {
                         let resp = widgets::ghost_button(ui, "trash-2", tl!("Clear"));
@@ -136,7 +118,7 @@ pub fn show(app: &mut PdfCraftApp, ui: &mut egui::Ui) {
                 // The row, not its response: the pointer stays "in" the row over its remove button.
                 let hovered = ui.rect_contains_pointer(rect);
                 if hovered {
-                    ui.painter().rect_filled(rect, CornerRadius::same(8), t.hover);
+                    ui.painter().rect_filled(rect, CornerRadius::same(t.radius), t.hover);
                     // Remove just this file from the list (#430); the file itself is untouched.
                     let x_rect = Rect::from_center_size(rect.right_center() - vec2(26.0, 0.0), vec2(28.0, 28.0));
                     let x = ui.interact(x_rect, ui.id().with(("remove-recent", &r.path)), Sense::click());
@@ -150,13 +132,7 @@ pub fn show(app: &mut PdfCraftApp, ui: &mut egui::Ui) {
                         remove = Some(r.path.clone());
                     }
                 }
-                icons::paint(
-                    ui,
-                    Rect::from_min_size(rect.min + vec2(10.0, 11.0), vec2(24.0, 24.0)),
-                    "file-text",
-                    22.0,
-                    egui::Color32::from_rgb(0xE0, 0x3E, 0x3E),
-                );
+                icons::paint(ui, Rect::from_min_size(rect.min + vec2(10.0, 11.0), vec2(24.0, 24.0)), "file-text", 22.0, t.accent_text);
                 // Room on the right for the remove button.
                 let detail = ui.painter().text(
                     rect.right_center() - vec2(48.0, 0.0),

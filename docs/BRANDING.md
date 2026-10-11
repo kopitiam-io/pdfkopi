@@ -22,6 +22,10 @@ PdfKopi is a Kopitiam product based on PdfCraft by the ArtCraft team.
   by PdfCraft and by earlier builds.
 - **Kopitiam's own mark is set in type** (`widgets::kopitiam_logo`, `widgets::kopitiam_mark`) until
   a Kopitiam logo asset exists.
+- **The skin is Kopitiam's heritage palette**, the one kopitiam.io uses: whitewash chrome, marble
+  cards, one jade accent (every tool icon is jade, never per-tool colours), a timber strip along
+  the top, Playfair Display for headings and squared-off 4 px corners. Day and Night map to the
+  site's day and night themes. All colours live in `crates/ui-egui/src/theme.rs`.
 
 ## Still to do
 

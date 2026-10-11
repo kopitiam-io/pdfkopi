@@ -133,8 +133,8 @@
 	Single page	Pagina singola
 	Show cover page in two-page view	Mostra la copertina in visualizzazione doppia
 	Use system setting	Usa impostazioni di sistema
-	Light gray	Grigio chiaro
-	Dark gray	Grigio scuro
+	Day	Giorno
+	Night	Notte
 	Comments	Commenti
 	Bookmarks	Segnalibri
 	Fields	Campi
@@ -2191,3 +2191,4 @@ key	Space	Spazio
 	Collapse all	Comprimi tutto
 	Remove page	Rimuovi pagina
 	Remove {n} pages	Rimuovi {n} pagine
+	Soon	Presto

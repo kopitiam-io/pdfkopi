@@ -130,8 +130,8 @@
 	Single page	Una sola página
 	Show cover page in two-page view	Mostrar la portada en la vista de dos páginas
 	Use system setting	Usar la configuración del sistema
-	Light gray	Gris claro
-	Dark gray	Gris oscuro
+	Day	Día
+	Night	Noche
 	Comments	Comentarios
 	Bookmarks	Marcadores
 	Fields	Campos
@@ -2098,3 +2098,4 @@ key	Space	Espacio
 	Collapse all	Contraer todo
 	Remove page	Quitar página
 	Remove {n} pages	Quitar {n} páginas
+	Soon	Pronto

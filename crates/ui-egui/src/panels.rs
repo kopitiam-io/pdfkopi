@@ -10,8 +10,20 @@ use crate::{LeftPanel, PdfCraftApp, RightPanel, icons, widgets};
 
 const COLLAPSED_TOOLS: usize = 14;
 
-fn hue(g: &ToolGroup) -> Color32 {
-    Color32::from_rgb(g.hue[0], g.hue[1], g.hue[2])
+/// A drawer row's hover: Kopitiam's soft jade wash with a jade bar on its leading edge.
+fn row_hover(ui: &egui::Ui, t: &Tokens, rect: Rect) {
+    ui.painter().rect_filled(rect, CornerRadius::same(t.radius), t.accent_soft);
+    ui.painter().rect_filled(Rect::from_min_size(rect.min, vec2(3.0, rect.height())), CornerRadius::ZERO, t.accent);
+}
+
+/// A small timber chip at the right end of a drawer row ("Soon", "Optional"); returns its rect.
+fn timber_chip(ui: &egui::Ui, t: &Tokens, row: Rect, label: &str) -> Rect {
+    let font = theme::semibold(9.5);
+    let w = ui.fonts_mut(|f| f.layout_no_wrap(label.to_string(), font.clone(), t.timber).size().x);
+    let r = Rect::from_center_size(row.right_center() - vec2(w / 2.0 + 10.0, 0.0), vec2(w + 10.0, 16.0));
+    ui.painter().rect(r, CornerRadius::same(3), t.timber_soft, Stroke::new(1.0, t.timber.gamma_multiply(0.45)), egui::StrokeKind::Inside);
+    ui.painter().text(r.center(), Align2::CENTER_CENTER, label, font, t.timber);
+    r
 }
 
 pub fn left_panel(app: &mut PdfCraftApp, ui: &mut egui::Ui) {
@@ -23,7 +35,7 @@ pub fn left_panel(app: &mut PdfCraftApp, ui: &mut egui::Ui) {
             egui::Frame::NONE
                 .fill(t.panel)
                 .inner_margin(egui::Margin { left: 14, right: 10, top: 12, bottom: 10 })
-                .stroke(Stroke::new(1.0, t.divider)),
+                .stroke(Stroke::new(1.5, t.border)),
         )
         .show(ui, |ui| match app.left {
             LeftPanel::AllTools => all_tools(app, ui, &t),
@@ -41,7 +53,7 @@ fn panel_header(ui: &mut egui::Ui, t: &Tokens, title: &str, back: bool) -> (bool
         if back && icons::button(ui, "chevron-left", 26.0, false, tl!("Back to all tools")).clicked() {
             go_back = true;
         }
-        ui.label(egui::RichText::new(tl!(title)).font(theme::semibold(15.5)).color(t.text));
+        ui.label(egui::RichText::new(tl!(title)).font(theme::serif(20.0)).color(t.text));
         ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
             if icons::button(ui, "x", 26.0, false, tl!("Close panel")).clicked() {
                 close = true;
@@ -76,32 +88,33 @@ fn tool_row(ui: &mut egui::Ui, t: &Tokens, g: &ToolGroup) -> egui::Response {
     let (rect, resp) = ui.allocate_exact_size(vec2(ui.available_width(), 34.0), Sense::click());
     resp.widget_info(|| egui::WidgetInfo::labeled(egui::WidgetType::Button, true, tl!(g.label)));
     if resp.hovered() {
-        ui.painter().rect_filled(rect, CornerRadius::same(6), t.hover);
+        row_hover(ui, t, rect);
     }
-    icons::paint(ui, Rect::from_min_size(rect.min + vec2(6.0, 7.0), vec2(20.0, 20.0)), g.icon, 19.0, hue(g));
-    ui.painter().text(rect.left_center() + vec2(36.0, 0.0), Align2::LEFT_CENTER, tl!(g.label), theme::regular(13.5), t.text);
-    match (g.badge, g.availability) {
-        (Some(b), _) => {
-            let font = theme::semibold(9.5);
-            let badge = tl!(b);
-            let w = ui.fonts_mut(|f| f.layout_no_wrap(badge.to_string(), font.clone(), Color32::WHITE).size().x);
-            let r = Rect::from_center_size(rect.right_center() - vec2(w / 2.0 + 10.0, 0.0), vec2(w + 10.0, 16.0));
-            ui.painter().rect_filled(r, CornerRadius::same(4), t.badge_new);
-            ui.painter().text(r.center(), Align2::CENTER_CENTER, badge, font, Color32::WHITE);
+    // A group the catalogue files under a later milestone can still hold tools that work today
+    // (Edit a PDF, Protect a PDF): it only reads as "not here yet" when none of them do.
+    let usable = !matches!(g.availability, Availability::Planned(_))
+        || g.sections.iter().any(|s| s.items.iter().any(|i| i.availability == Availability::Ready));
+    icons::paint(
+        ui,
+        Rect::from_min_size(rect.min + vec2(8.0, 7.0), vec2(20.0, 20.0)),
+        g.icon,
+        19.0,
+        if usable { t.accent_text } else { t.text_faint },
+    );
+    let fg = if usable { t.text } else { t.text_muted };
+    ui.painter().text(rect.left_center() + vec2(38.0, 0.0), Align2::LEFT_CENTER, tl!(g.label), theme::regular(13.5), fg);
+    // Only what isn't usable yet carries a chip, so the list stays calm.
+    match g.badge {
+        Some(b) => {
+            timber_chip(ui, t, rect, tl!(b));
         }
-        // Planned tools: a quiet milestone hint instead of a chip, so the list stays calm.
-        (None, Availability::Planned(m)) if resp.hovered() => {
-            ui.painter().text(
-                rect.right_center() - vec2(10.0, 0.0),
-                Align2::RIGHT_CENTER,
-                format!("{} · {m}", tl!("Planned")),
-                theme::medium(10.5),
-                t.text_faint,
-            );
+        None if !usable => {
+            timber_chip(ui, t, rect, tl!("Soon"));
         }
-        _ => {}
+        None => {}
     }
     let tip = match g.availability {
+        Availability::Planned(_) if usable => tl!("Available").to_string(),
         Availability::Ready => tl!("Available").to_string(),
         Availability::Planned(m) => format!("{} {m} — {}", tl!("Planned for milestone"), tl!("open to see what it will include")),
         Availability::Provider => tl!("Optional: needs an AI provider you configure").into(),
@@ -117,16 +130,6 @@ fn tool_detail(app: &mut PdfCraftApp, ui: &mut egui::Ui, t: &Tokens, g: &'static
     }
     if close {
         app.left_open = false;
-    }
-    if let Availability::Planned(m) = g.availability {
-        egui::Frame::NONE.fill(t.accent_soft).corner_radius(CornerRadius::same(8)).inner_margin(egui::Margin::same(10)).show(ui, |ui| {
-            ui.set_width(ui.available_width());
-            ui.label(
-                egui::RichText::new(format!("{} {m}. {}", tl!("Coming in milestone"), tl!("Items marked Ready work today.")))
-                    .color(t.text)
-                    .font(theme::regular(12.0)),
-            );
-        });
     }
     if g.id == "measure" {
         crate::measure_ui::panel(app, ui, t);
@@ -181,28 +184,28 @@ fn tool_detail(app: &mut PdfCraftApp, ui: &mut egui::Ui, t: &Tokens, g: &'static
                 resp.widget_info(|| egui::WidgetInfo::labeled(egui::WidgetType::Button, true, tl!(item.label)));
                 let ready = item.availability == Availability::Ready;
                 if resp.hovered() {
-                    ui.painter().rect_filled(rect, CornerRadius::same(6), t.hover);
+                    row_hover(ui, t, rect);
                 }
                 let fg = if ready { t.text } else { t.text_muted };
                 icons::paint(
                     ui,
-                    Rect::from_min_size(rect.min + vec2(6.0, 8.0), vec2(18.0, 18.0)),
+                    Rect::from_min_size(rect.min + vec2(8.0, 8.0), vec2(18.0, 18.0)),
                     item.icon,
                     17.0,
-                    if ready { hue(g) } else { t.text_faint },
+                    if ready { t.accent_text } else { t.text_faint },
                 );
-                ui.painter().text(rect.left_center() + vec2(34.0, 0.0), Align2::LEFT_CENTER, tl!(item.label), theme::regular(13.0), fg);
-                let (chip, fill, cfg) = match item.availability {
-                    Availability::Ready => (tl!("Ready"), Color32::from_rgb(0xDD, 0xF3, 0xE4), Color32::from_rgb(0x1E, 0x7B, 0x43)),
-                    Availability::Planned(m) => (m, t.pressed, t.text_muted),
-                    Availability::Provider => ("AI", t.pressed, t.text_muted),
-                };
-                let font = theme::semibold(9.5);
-                let w = ui.fonts_mut(|f| f.layout_no_wrap(tl!(chip).to_string(), font.clone(), cfg).size().x);
-                let r = Rect::from_center_size(rect.right_center() - vec2(w / 2.0 + 10.0, 0.0), vec2(w + 10.0, 16.0));
-                ui.painter().rect_filled(r, CornerRadius::same(4), fill);
-                ui.painter().text(r.center(), Align2::CENTER_CENTER, tl!(chip), font, cfg);
-                if resp.on_hover_text(item.command).clicked() {
+                ui.painter().text(rect.left_center() + vec2(36.0, 0.0), Align2::LEFT_CENTER, tl!(item.label), theme::regular(13.0), fg);
+                // Working items carry no chip; the rest say plainly that they're not here yet.
+                match item.availability {
+                    Availability::Ready => {}
+                    Availability::Planned(_) => {
+                        timber_chip(ui, t, rect, tl!("Soon"));
+                    }
+                    Availability::Provider => {
+                        timber_chip(ui, t, rect, "AI");
+                    }
+                }
+                if resp.clicked() {
                     run = Some(item.command);
                 }
             }
@@ -1182,7 +1185,7 @@ fn fields(
             if selected || resp.hovered() {
                 ui.painter().rect_filled(rect, CornerRadius::same(6), if selected { t.pressed } else { t.hover });
             }
-            icons::paint(ui, Rect::from_min_size(rect.min + vec2(8.0, 7.0), vec2(16.0, 16.0)), icon, 15.0, Color32::from_rgb(0x8E, 0x4E, 0xE6));
+            icons::paint(ui, Rect::from_min_size(rect.min + vec2(8.0, 7.0), vec2(16.0, 16.0)), icon, 15.0, t.accent_text);
             ui.painter().text(rect.left_center() + vec2(32.0, 0.0), Align2::LEFT_CENTER, &f.name, theme::regular(13.0), t.text);
             if let Some(v) = &f.value {
                 let v: String = if v.chars().count() > 18 { format!("{}…", v.chars().take(17).collect::<String>()) } else { v.clone() };

@@ -1,5 +1,6 @@
-//! Design tokens and egui style (plan/acrobat/02-ui-ux.md §1: neutral chrome, white panels,
-//! one blue accent; Dark Gray keeps pages white). Every custom widget reads `Tokens::get`.
+//! Design tokens and egui style: Kopitiam's heritage skin (whitewash chrome, marble cards, one
+//! jade accent, timber trim, Playfair Display headings, squared-off corners; pages stay white).
+//! Every custom widget reads `Tokens::get`.
 
 use std::sync::Arc;
 
@@ -59,64 +60,78 @@ pub struct Tokens {
     pub pressed: Color32,
     pub selected: Color32,
     pub accent: Color32,
+    /// A hovered or pressed accent fill (buttons darken towards the jade tiles' grout).
+    pub accent_hover: Color32,
     pub accent_text: Color32,
     pub accent_soft: Color32,
     pub field: Color32,
     pub badge_new: Color32,
     pub page_shadow: Color32,
+    /// Aged nanyang timber: the strip along the top of the window and "Soon" chips.
+    pub timber: Color32,
+    /// Background of a timber chip.
+    pub timber_soft: Color32,
     pub radius: u8,
 }
 
 impl Tokens {
+    /// Kopitiam's heritage palette, the same one kopitiam.io uses (`src/theme.css` there):
+    /// day is limewashed walls, marble table tops and jade tiles; night is dark jade and timber.
     pub fn for_kind(kind: ThemeKind) -> Self {
         match kind {
             ThemeKind::Light => Self {
                 kind,
-                titlebar: Color32::from_rgb(0xE9, 0xE9, 0xEB),
-                chrome: Color32::from_rgb(0xFF, 0xFF, 0xFF),
-                panel: Color32::from_rgb(0xFF, 0xFF, 0xFF),
-                pasteboard: Color32::from_rgb(0xF1, 0xF1, 0xF3),
+                titlebar: Color32::from_rgb(0xEA, 0xE5, 0xD8),
+                chrome: Color32::from_rgb(0xF4, 0xF1, 0xE9),
+                panel: Color32::from_rgb(0xEA, 0xE5, 0xD8),
+                pasteboard: Color32::from_rgb(0xF4, 0xF1, 0xE9),
                 card: Color32::from_rgb(0xFF, 0xFF, 0xFF),
-                border: Color32::from_rgb(0xDA, 0xDA, 0xDE),
-                divider: Color32::from_rgb(0xE8, 0xE8, 0xEB),
-                text: Color32::from_rgb(0x22, 0x22, 0x26),
-                text_muted: Color32::from_rgb(0x5E, 0x5E, 0x66),
-                text_faint: Color32::from_rgb(0x6B, 0x6B, 0x73),
-                icon: Color32::from_rgb(0x44, 0x44, 0x4B),
-                hover: Color32::from_rgb(0xF0, 0xF0, 0xF3),
-                pressed: Color32::from_rgb(0xE4, 0xE4, 0xE9),
-                selected: Color32::from_rgb(0xE6, 0xEE, 0xFD),
-                accent: Color32::from_rgb(0x1B, 0x63, 0xE0),
-                accent_text: Color32::from_rgb(0x17, 0x55, 0xC4),
-                accent_soft: Color32::from_rgb(0xE3, 0xEC, 0xFD),
+                border: Color32::from_rgb(0xDD, 0xD8, 0xCA),
+                divider: Color32::from_rgb(0xE0, 0xDB, 0xCE),
+                text: Color32::from_rgb(0x20, 0x21, 0x1C),
+                text_muted: Color32::from_rgb(0x62, 0x5F, 0x55),
+                text_faint: Color32::from_rgb(0x67, 0x64, 0x5A),
+                icon: Color32::from_rgb(0x45, 0x44, 0x3C),
+                hover: Color32::from_rgb(0xE3, 0xEB, 0xE4),
+                pressed: Color32::from_rgb(0xD5, 0xE3, 0xD9),
+                selected: Color32::from_rgb(0xE7, 0xEF, 0xE9),
+                accent: Color32::from_rgb(0x1F, 0x6F, 0x5C),
+                accent_hover: Color32::from_rgb(0x14, 0x4E, 0x40),
+                accent_text: Color32::from_rgb(0x18, 0x5C, 0x4C),
+                accent_soft: Color32::from_rgb(0xE7, 0xEF, 0xE9),
                 field: Color32::from_rgb(0xFF, 0xFF, 0xFF),
-                badge_new: Color32::from_rgb(0x1B, 0x63, 0xE0),
-                page_shadow: Color32::from_black_alpha(34),
-                radius: 6,
+                badge_new: Color32::from_rgb(0x1F, 0x6F, 0x5C),
+                page_shadow: Color32::from_rgba_unmultiplied(74, 51, 36, 40),
+                timber: Color32::from_rgb(0x8A, 0x5A, 0x34),
+                timber_soft: Color32::from_rgb(0xF6, 0xEC, 0xDF),
+                radius: 4,
             },
             ThemeKind::Dark => Self {
                 kind,
-                titlebar: Color32::from_rgb(0x1B, 0x1B, 0x1E),
-                chrome: Color32::from_rgb(0x26, 0x26, 0x2A),
-                panel: Color32::from_rgb(0x26, 0x26, 0x2A),
-                pasteboard: Color32::from_rgb(0x19, 0x19, 0x1C),
-                card: Color32::from_rgb(0x2E, 0x2E, 0x33),
-                border: Color32::from_rgb(0x3C, 0x3C, 0x43),
-                divider: Color32::from_rgb(0x33, 0x33, 0x39),
-                text: Color32::from_rgb(0xEC, 0xEC, 0xEF),
-                text_muted: Color32::from_rgb(0xAE, 0xAE, 0xB6),
-                text_faint: Color32::from_rgb(0x97, 0x97, 0x9E),
-                icon: Color32::from_rgb(0xD4, 0xD4, 0xDA),
-                hover: Color32::from_rgb(0x34, 0x34, 0x3A),
-                pressed: Color32::from_rgb(0x3E, 0x3E, 0x45),
-                selected: Color32::from_rgb(0x23, 0x3A, 0x63),
-                accent: Color32::from_rgb(0x4B, 0x8B, 0xF5),
-                accent_text: Color32::from_rgb(0x8C, 0xB6, 0xFA),
-                accent_soft: Color32::from_rgb(0x24, 0x36, 0x57),
-                field: Color32::from_rgb(0x1E, 0x1E, 0x22),
-                badge_new: Color32::from_rgb(0x3D, 0x7D, 0xEE),
+                titlebar: Color32::from_rgb(0x0E, 0x1A, 0x16),
+                chrome: Color32::from_rgb(0x12, 0x21, 0x1C),
+                panel: Color32::from_rgb(0x0E, 0x1A, 0x16),
+                pasteboard: Color32::from_rgb(0x0C, 0x16, 0x13),
+                card: Color32::from_rgb(0x1A, 0x2C, 0x26),
+                border: Color32::from_rgb(0x2C, 0x42, 0x38),
+                divider: Color32::from_rgb(0x24, 0x3A, 0x31),
+                text: Color32::from_rgb(0xEE, 0xE9, 0xDC),
+                text_muted: Color32::from_rgb(0xB3, 0xBD, 0xB4),
+                text_faint: Color32::from_rgb(0x9A, 0xA6, 0x9C),
+                icon: Color32::from_rgb(0xD6, 0xDC, 0xCF),
+                hover: Color32::from_rgb(0x1F, 0x36, 0x2E),
+                pressed: Color32::from_rgb(0x26, 0x42, 0x38),
+                selected: Color32::from_rgb(0x1C, 0x3B, 0x31),
+                accent: Color32::from_rgb(0x23, 0x80, 0x6A),
+                accent_hover: Color32::from_rgb(0x1A, 0x66, 0x54),
+                accent_text: Color32::from_rgb(0x6C, 0xC7, 0xAB),
+                accent_soft: Color32::from_rgb(0x1C, 0x3B, 0x31),
+                field: Color32::from_rgb(0x0E, 0x1A, 0x16),
+                badge_new: Color32::from_rgb(0x23, 0x80, 0x6A),
                 page_shadow: Color32::from_black_alpha(120),
-                radius: 6,
+                timber: Color32::from_rgb(0xD1, 0x9A, 0x5E),
+                timber_soft: Color32::from_rgb(0x2A, 0x21, 0x16),
+                radius: 4,
             },
         }
     }
@@ -208,8 +223,11 @@ pub fn font_definitions_for(prefer_hans: bool) -> FontDefinitions {
             }
         }
     }
+    add(&mut fonts, "PlayfairDisplay-SemiBold", include_bytes!("../../../assets/fonts/PlayfairDisplay-SemiBold.ttf"));
     let fallback: Vec<String> = fonts.families[&FontFamily::Proportional].clone();
-    for (fam, primary) in [("medium", "Inter-Medium"), ("semibold", "Inter-SemiBold")] {
+    // "serif" is Kopitiam's display face for headings; scripts it lacks (CJK, Arabic, Telugu …)
+    // fall through to the interface faces.
+    for (fam, primary) in [("medium", "Inter-Medium"), ("semibold", "Inter-SemiBold"), ("serif", "PlayfairDisplay-SemiBold")] {
         let mut stack = vec![primary.to_owned()];
         stack.extend(fallback.iter().cloned());
         fonts.families.insert(FontFamily::Name(fam.into()), stack);
@@ -225,6 +243,23 @@ pub fn medium(size: f32) -> FontId {
 }
 pub fn semibold(size: f32) -> FontId {
     FontId::new(size, FontFamily::Name("semibold".into()))
+}
+/// Playfair Display SemiBold, for page and panel headings.
+pub fn serif(size: f32) -> FontId {
+    FontId::new(size, FontFamily::Name("serif".into()))
+}
+
+/// The timber strip along the top edge of the window, like the louvred eaves of a kopitiam.
+pub const TIMBER_STRIP: f32 = 4.0;
+
+/// Paint the timber strip across the top of `rect`.
+pub fn paint_timber_strip(painter: &egui::Painter, rect: egui::Rect, t: &Tokens) {
+    let strip = egui::Rect::from_min_size(rect.min, egui::vec2(rect.width(), TIMBER_STRIP));
+    painter.rect_filled(strip, CornerRadius::ZERO, t.timber);
+    // A lighter slat face along the top edge.
+    let hi = egui::Rect::from_min_size(rect.min, egui::vec2(rect.width(), 1.0));
+    let face = if t.dark() { Color32::from_rgb(0xA9, 0x72, 0x3F) } else { Color32::from_rgb(0xC6, 0x8F, 0x52) };
+    painter.rect_filled(hi, CornerRadius::ZERO, face);
 }
 
 pub fn apply(ctx: &egui::Context, kind: ThemeKind) {
@@ -242,10 +277,12 @@ pub fn apply(ctx: &egui::Context, kind: ThemeKind) {
     v.selection.stroke = Stroke::new(1.0, t.accent);
     v.hyperlink_color = t.accent_text;
     v.override_text_color = Some(t.text);
-    v.window_corner_radius = CornerRadius::same(10);
-    v.menu_corner_radius = CornerRadius::same(8);
-    v.window_shadow = egui::Shadow { offset: [0, 8], blur: 28, spread: 0, color: Color32::from_black_alpha(if t.dark() { 110 } else { 38 }) };
-    v.popup_shadow = egui::Shadow { offset: [0, 4], blur: 16, spread: 0, color: Color32::from_black_alpha(if t.dark() { 90 } else { 30 }) };
+    v.window_corner_radius = CornerRadius::same(6);
+    v.menu_corner_radius = CornerRadius::same(6);
+    // Warm timber-brown shadows in the day theme, as on kopitiam.io.
+    let shadow = |alpha: u8| if t.dark() { Color32::from_black_alpha(alpha) } else { Color32::from_rgba_unmultiplied(74, 51, 36, alpha / 2) };
+    v.window_shadow = egui::Shadow { offset: [0, 8], blur: 28, spread: 0, color: shadow(if t.dark() { 110 } else { 70 }) };
+    v.popup_shadow = egui::Shadow { offset: [0, 4], blur: 16, spread: 0, color: shadow(if t.dark() { 90 } else { 56 }) };
     for w in [&mut v.widgets.noninteractive, &mut v.widgets.inactive, &mut v.widgets.hovered, &mut v.widgets.active, &mut v.widgets.open] {
         w.corner_radius = CornerRadius::same(t.radius);
         w.fg_stroke.color = t.text;
