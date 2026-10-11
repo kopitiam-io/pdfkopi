@@ -1,4 +1,4 @@
-//! Windows only: embed the app icon and version info (VERSIONINFO) into `pdfcraft.exe`, so it
+//! Windows only: embed the app icon and version info (VERSIONINFO) into `pdfkopi.exe`, so it
 //! shows in Explorer, the taskbar, the Start menu and Alt-Tab.
 //!
 //! On every other target this does nothing. A missing resource compiler is a warning, so a
@@ -17,13 +17,13 @@ fn main() {
         .set("ProductName", "PdfKopi")
         .set("FileDescription", "PdfKopi PDF workbench")
         .set("LegalCopyright", "Copyright (c) the PdfKopi contributors. MIT OR Apache-2.0.")
-        .set("OriginalFilename", "pdfcraft.exe")
-        .set("InternalName", "pdfcraft");
+        .set("OriginalFilename", "pdfkopi.exe")
+        .set("InternalName", "pdfkopi");
     if let Err(e) = res.compile() {
         if std::env::var_os("PDFCRAFT_REQUIRE_WINRES").is_some() {
             println!("cargo::error=embedding Windows resources failed: {e}");
             return;
         }
-        println!("cargo:warning=pdfcraft.exe built without icon/version resources: {e}");
+        println!("cargo:warning=pdfkopi.exe built without icon/version resources: {e}");
     }
 }

@@ -4,7 +4,7 @@
 use std::path::PathBuf;
 use std::process::{Command, Output};
 
-const BIN: &str = env!("CARGO_BIN_EXE_pdfcraft-cli");
+const BIN: &str = env!("CARGO_BIN_EXE_pdfkopi-cli");
 
 fn tmp(test: &str, name: &str) -> PathBuf {
     let d = std::env::temp_dir().join(format!("pdfcraft-cli-render-{test}-{}", std::process::id()));
