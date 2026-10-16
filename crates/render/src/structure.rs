@@ -230,6 +230,39 @@ trailer
         assert_eq!(pages.len(), 1, "the walk counts the one real page, not /Count");
     }
 
+    /// The nightly fuzz finding (2026-10-11, seed 17): the hostile /Count sits on a *nested*
+    /// /Pages node, which is the one lopdf's `PageTreeIter::size_hint` reads. Both the bounded
+    /// walk and lopdf's own `get_pages` (still called directly, e.g. by `get_object_page`)
+    /// must count the real pages instead of pre-allocating 4294967295 entries (48 GiB).
+    #[test]
+    fn a_hostile_nested_page_count_does_not_abort_inspection() {
+        let pdf = b"%PDF-1.7
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 4 0 R] /Count 2 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 200 200] >>
+endobj
+4 0 obj
+<< /Type /Pages /Parent 2 0 R /Kids [5 0 R] /Count 4294967295 >>
+endobj
+5 0 obj
+<< /Type /Page /Parent 4 0 R /MediaBox [0 0 200 200] >>
+endobj
+trailer
+<< /Size 6 /Root 1 0 R >>
+%%EOF";
+        let doc = lopdf::Document::load_mem(&pdf[..]).unwrap();
+        assert_eq!(Structure::get_pages(&doc).len(), 2, "the bounded walk counts the real pages");
+        assert_eq!(doc.get_pages().len(), 2, "lopdf's own walk no longer trusts the nested /Count");
+        let (low, high) = doc.page_iter().size_hint();
+        assert!(low <= doc.objects.len(), "the pre-allocation hint is capped by the object count: {low}");
+        assert!(high.is_some_and(|h| h >= 2), "the upper bound covers the real pages: {high:?}");
+    }
+
     #[test]
     fn inspection_loads_only_requested_objects_in_a_compressed_document() {
         let mut source = lopdf::Document::with_version("1.7");

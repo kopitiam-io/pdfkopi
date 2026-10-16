@@ -955,9 +955,14 @@ impl Iterator for PageTreeIter<'_> {
                     1
                 }
             })
-            .sum();
+            .fold(0usize, usize::saturating_add);
 
-        (nb_pages, Some(nb_pages))
+        // PdfCraft patch: /Count is untrusted input, and `collect` pre-allocates by the lower
+        // bound (a fuzzed nested `/Count 4294967295` aborted with a 48 GiB allocation). Every
+        // page yielded costs one step of `iter_limit` (the document's object count), so that is
+        // a true upper bound, and it caps the pre-allocation hint too.
+        let bound = self.iter_limit;
+        (nb_pages.min(bound), Some(bound))
     }
 }
 
