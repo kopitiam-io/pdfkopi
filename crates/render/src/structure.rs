@@ -115,9 +115,9 @@ impl Structure for lopdf::Document {
     fn encrypted(&self) -> bool {
         self.is_encrypted() || self.was_encrypted() || self.trailer.has(b"Encrypt")
     }
-    fn get_pages(&self) -> BTreeMap<u32, ObjectId> {
-        self.get_pages()
-    }
+    // `get_pages` is not overridden: lopdf's own page-tree walk trusts /Count and pre-allocates
+    // by it, so a hostile /Count (a fuzz finding: 4294967295) aborted the process with a 48 GiB
+    // allocation. The trait's bounded default walk counts the real pages instead.
     fn get_page_fonts(&self, page: ObjectId) -> Result<BTreeMap<Vec<u8>, &Dictionary>> {
         self.get_page_fonts(page)
     }
@@ -206,6 +206,62 @@ fn convert(object: &CosObject, depth: usize) -> Result<Object> {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// A hostile page-tree /Count must not abort the process: lopdf's own `get_pages`
+    /// pre-allocates by it (fuzz finding: /Count 4294967295 -> a 48 GiB allocation),
+    /// the bounded default walk counts the real pages instead.
+    #[test]
+    fn a_hostile_page_count_does_not_abort_inspection() {
+        let pdf = b"%PDF-1.7
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 4294967295 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 200 200] >>
+endobj
+trailer
+<< /Size 4 /Root 1 0 R >>
+%%EOF";
+        let doc = lopdf::Document::load_mem(&pdf[..]).unwrap();
+        let pages = Structure::get_pages(&doc);
+        assert_eq!(pages.len(), 1, "the walk counts the one real page, not /Count");
+    }
+
+    /// The nightly fuzz finding (2026-10-11, seed 17): the hostile /Count sits on a *nested*
+    /// /Pages node, which is the one lopdf's `PageTreeIter::size_hint` reads. Both the bounded
+    /// walk and lopdf's own `get_pages` (still called directly, e.g. by `get_object_page`)
+    /// must count the real pages instead of pre-allocating 4294967295 entries (48 GiB).
+    #[test]
+    fn a_hostile_nested_page_count_does_not_abort_inspection() {
+        let pdf = b"%PDF-1.7
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 4 0 R] /Count 2 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 200 200] >>
+endobj
+4 0 obj
+<< /Type /Pages /Parent 2 0 R /Kids [5 0 R] /Count 4294967295 >>
+endobj
+5 0 obj
+<< /Type /Page /Parent 4 0 R /MediaBox [0 0 200 200] >>
+endobj
+trailer
+<< /Size 6 /Root 1 0 R >>
+%%EOF";
+        let doc = lopdf::Document::load_mem(&pdf[..]).unwrap();
+        assert_eq!(Structure::get_pages(&doc).len(), 2, "the bounded walk counts the real pages");
+        assert_eq!(doc.get_pages().len(), 2, "lopdf's own walk no longer trusts the nested /Count");
+        let (low, high) = doc.page_iter().size_hint();
+        assert!(low <= doc.objects.len(), "the pre-allocation hint is capped by the object count: {low}");
+        assert!(high.is_some_and(|h| h >= 2), "the upper bound covers the real pages: {high:?}");
+    }
 
     #[test]
     fn inspection_loads_only_requested_objects_in_a_compressed_document() {
