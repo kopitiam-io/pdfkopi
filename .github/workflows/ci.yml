@@ -4,9 +4,9 @@ on:
   push:
     branches: [main]
   pull_request:
+  # Fuzzing (the `fuzz` job) runs only when this workflow is started by hand (Actions > CI >
+  # Run workflow). The nightly schedule inherited from upstream is off in PdfKopi.
   workflow_dispatch:
-  schedule:
-    - cron: "17 3 * * *" # nightly fuzzing
 
 env:
   CARGO_TERM_COLOR: always
