@@ -223,9 +223,9 @@ jobs:
           dpkg-deb --info dist/release/*.deb
           dpkg-deb --contents dist/release/*.deb | grep -E 'usr/bin/pdfkopi$|metainfo|applications'
           # The OCR models (#103), where the installed app looks: <bin>/../share/pdfkopi/models.
-          dpkg-deb --contents dist/release/*.deb | grep -E 'usr/share/pdfkopi/models/.+\.rten$'
+          dpkg-deb --contents dist/release/*.deb | grep -E 'usr/share/pdfkopi/models/.+\.onnx$'
           # Named exactly: dist/release also holds the CLI-only tar.gz, and `tar -tzf a b` reads b as a member.
-          tar -tzf "dist/release/pdfkopi-$PDFCRAFT_VERSION-linux-${{ matrix.arch }}.tar.gz" | grep -E '/share/pdfkopi/models/.+\.rten$'
+          tar -tzf "dist/release/pdfkopi-$PDFCRAFT_VERSION-linux-${{ matrix.arch }}.tar.gz" | grep -E '/share/pdfkopi/models/.+\.onnx$'
           ldd target/release/pdfkopi
           # The CLI-only archive: the binary and its licences, and it runs.
           cli="dist/release/pdfkopi-cli-$PDFCRAFT_VERSION-linux-${{ matrix.arch }}.tar.gz"
